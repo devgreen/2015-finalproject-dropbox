@@ -24,11 +24,7 @@ public class Server implements Incoming{
 	}
 
 	public void connectToClients() {
-		/*
-		 * while(true){ Socket clientSocket = serverSocket.connect(); connect to
-		 * new socket and add it to sockets sockets.add(? create a ReaderThread
-		 * for this new client and .start() the thread }
-		 */
+		
 	}
 
 	
