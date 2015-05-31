@@ -26,9 +26,7 @@ public class Server implements Incoming {
 	}
 
 	public void connectToClients() {
-<<<<<<< HEAD
-		
-=======
+
 		while (true) {
 			Socket socket;
 			try {
@@ -41,7 +39,6 @@ public class Server implements Incoming {
 			}
 
 		}
->>>>>>> origin/master
 	}
 
 	@Override
