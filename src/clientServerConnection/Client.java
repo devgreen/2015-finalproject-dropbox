@@ -1,6 +1,14 @@
 package clientServerConnection;
 
-public class Client {
+import messages.Incoming;
+import messages.Message;
+
+public class Client implements Incoming{
+
+	@Override
+	public void dealWithMessage(Message message) {
+		message.display();
+	}
 	
 	
 
