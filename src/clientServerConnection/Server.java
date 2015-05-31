@@ -11,25 +11,23 @@ public class Server {
 
 	private LinkedBlockingQueue<Message> messages;
 	private List<Socket> sockets;
-	private WriterThread writer;
+	private PerformThread perform;
 	private ServerSocket serverSocket;
-	
-	public Server(){
+
+	public Server() {
 		messages = new LinkedBlockingQueue<Message>();
 		sockets = new ArrayList<Socket>();
-		writer = new WriterThread(messages);
-		//writerthread.start?
-		//instantiate the serverSocket
+		// instantiate the serverSocket
+		perform = new PerformThread(messages);
+		perform.start();
 	}
-	
-	public void connectToClients(){
-		/* while(true){
-		  Socket clientSocket = serverSocket.connect();
-		 * connect to new socket and add it to sockets
-		 * sockets.add(?
-		 * create a ReaderThread for this new client and .start() the thread
-		 * }
+
+	public void connectToClients() {
+		/*
+		 * while(true){ Socket clientSocket = serverSocket.connect(); connect to
+		 * new socket and add it to sockets sockets.add(? create a ReaderThread
+		 * for this new client and .start() the thread }
 		 */
 	}
-	
+
 }

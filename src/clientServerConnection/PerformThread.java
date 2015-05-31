@@ -4,19 +4,22 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import messages.Message;
 
-public class WriterThread extends Thread {
+public class PerformThread extends Thread {
 
 	private LinkedBlockingQueue<Message> messages;
 
-	public WriterThread(LinkedBlockingQueue<Message> messages) {
+	public PerformThread(LinkedBlockingQueue<Message> messages) {
 		this.messages = messages;
 	}
 
 	@Override
 	public void run() {
+				
 		while (true) {
 			try {
+				
 				((Message) messages.take()).perform();
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
