@@ -1,15 +1,27 @@
 package clientServerConnection;
 
-import messages.Incoming;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import messages.Message;
 
-public class Client implements Incoming{
+public class Client implements Incoming {
+
+	private Socket socket;
+
+	public Client() throws UnknownHostException, IOException {
+		socket = new Socket("localhost", 1113);
+		ReaderThread thread = new ReaderThread(socket, this);
+		thread.start();
+	}
 
 	@Override
 	public void dealWithMessage(Message message) {
 		message.display();
 	}
 	
-	
+	public Socket getSocket() {
+		return socket;
+	}
 
 }
