@@ -3,7 +3,6 @@ package clientServerConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -24,7 +23,6 @@ public class ReaderThread extends Thread {
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
 		writer = new PrintWriter(clientSocket.getOutputStream());
-
 	}
 
 	@Override
@@ -43,22 +41,19 @@ public class ReaderThread extends Thread {
 	}
 
 	private Message instantiateMessage(String strRcvd) {
-		
-		switch(strRcvd){
+		String[] stringSplit = strRcvd.split(" ");
+		switch(stringSplit[0]){
 		case "List":
 			return new ListFiles(writer, incoming);
-			break;
 		case "Sync":
 			return new Sync(incoming);
-			break;
 		case "Chunk":
-			return new ChunkMessage();
-			break;
+			return new ChunkMessage(writer, incoming, stringSplit);
 		case "Download":
 			return new Download();
-			break;
 		}
-		//case statement for each string, return Message
+		return null;
+		
 	}
 
 }
