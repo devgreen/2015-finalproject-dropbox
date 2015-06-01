@@ -23,7 +23,6 @@ public class FileCache {
 		File file = new File (ROOT);
 		File [] lists = file.listFiles();
 		return Arrays.asList(lists);
-		
 	}
 
 	public void addChunk(Chunk chunk) throws IOException {
@@ -34,9 +33,6 @@ public class FileCache {
 		random.write(chunk.getBytes());
 		random.close();
 		
-	
-		
-
 	}
 
 	public Chunk getChunk(String fileName, int start, int length) throws IOException {

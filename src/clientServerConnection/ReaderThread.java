@@ -31,8 +31,9 @@ public class ReaderThread extends Thread {
 	public void run() {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			while (true) {
-				String strRcvd = reader.readLine();
+			String strRcvd;
+			while ((strRcvd = reader.readLine()) != null) {
+				strRcvd = reader.readLine();
 				Message msgRcvd = instantiateMessage(strRcvd);
 				incoming.dealWithMessage(msgRcvd);
 			}
@@ -43,22 +44,18 @@ public class ReaderThread extends Thread {
 	}
 
 	private Message instantiateMessage(String strRcvd) {
-		
-		switch(strRcvd){
+
+		switch (strRcvd) {
 		case "List":
 			return new ListFiles(writer, incoming);
-			break;
 		case "Sync":
 			return new Sync(incoming);
-			break;
 		case "Chunk":
 			return new ChunkMessage();
-			break;
 		case "Download":
 			return new Download();
-			break;
 		}
-		//case statement for each string, return Message
+		return null;
 	}
 
 }
