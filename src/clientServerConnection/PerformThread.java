@@ -6,10 +6,12 @@ import messages.Message;
 
 public class PerformThread extends Thread {
 
+	private Server server;
 	private LinkedBlockingQueue<Message> messages;
 
-	public PerformThread(LinkedBlockingQueue<Message> messages) {
-		this.messages = messages;
+	public PerformThread(Server server) {
+		this.server = server;
+		this.messages = server.getMessages();
 	}
 
 	@Override

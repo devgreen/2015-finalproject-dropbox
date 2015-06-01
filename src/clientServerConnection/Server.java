@@ -15,13 +15,23 @@ public class Server implements Incoming {
 	private List<Socket> sockets;
 	private PerformThread perform;
 	private ServerSocket serverSocket;
+	private FileCache fileCache;
 
 	public Server() throws IOException {
 		serverSocket = new ServerSocket(1113);
 		messages = new LinkedBlockingQueue<Message>();
 		sockets = new ArrayList<Socket>();
-		perform = new PerformThread(messages);
+		perform = new PerformThread(this);
 		perform.start();
+		fileCache = new FileCache();
+	}
+	
+	public LinkedBlockingQueue<Message> getMessages(){
+		return messages;
+	}
+	
+	public FileCache getFileCache(){
+		return fileCache;
 	}
 
 	public void connectToClients() {

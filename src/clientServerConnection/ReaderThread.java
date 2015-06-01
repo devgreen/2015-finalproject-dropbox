@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
 import messages.Message;
 
 public class ReaderThread extends Thread {
@@ -26,16 +25,18 @@ public class ReaderThread extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			while (true) {
 				String strRcvd = reader.readLine();
-				Message msgRcvd = (Message) read.readObject();
+				Message msgRcvd = instantiateMessage(strRcvd);
 				incoming.dealWithMessage(msgRcvd);
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
+	}
 
+	private Message instantiateMessage(String strRcvd) {
+		//case statement for each string, return Message
+		return new Message(clientSocket, incoming);
 	}
 
 }

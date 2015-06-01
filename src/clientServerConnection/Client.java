@@ -8,11 +8,13 @@ import messages.Message;
 public class Client implements Incoming {
 
 	private Socket socket;
+	private FileCache fileCache;
 
 	public Client() throws UnknownHostException, IOException {
 		socket = new Socket("localhost", 1113);
 		ReaderThread thread = new ReaderThread(socket, this);
 		thread.start();
+		fileCache = new FileCache();
 	}
 
 	@Override
