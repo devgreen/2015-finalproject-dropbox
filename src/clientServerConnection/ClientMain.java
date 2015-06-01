@@ -4,7 +4,7 @@ public class ClientMain {
 
 	public static void main(String args[]){
 		
-		new ClientGUi().setVisible(true);
+		new ClientGUI().setVisible(true);
 		
 	}
 	

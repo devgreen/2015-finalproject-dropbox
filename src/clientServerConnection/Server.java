@@ -20,7 +20,6 @@ public class Server implements Incoming {
 		serverSocket = new ServerSocket(1113);
 		messages = new LinkedBlockingQueue<Message>();
 		sockets = new ArrayList<Socket>();
-		// instantiate the serverSocket
 		perform = new PerformThread(messages);
 		perform.start();
 	}
