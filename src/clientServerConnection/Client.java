@@ -25,5 +25,9 @@ public class Client implements Incoming {
 	public Socket getSocket() {
 		return socket;
 	}
+	
+	public FileCache getFileCache(){
+		return fileCache;
+	}
 
 }
