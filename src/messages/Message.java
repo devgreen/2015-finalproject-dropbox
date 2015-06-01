@@ -1,6 +1,5 @@
 package messages;
 
-import clientServerConnection.Server;
 
 public interface Message {
 

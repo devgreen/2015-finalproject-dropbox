@@ -1,5 +1,5 @@
 package messages;
 
-public class Sync {
+public class Sync implements Message {
 
 }

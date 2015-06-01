@@ -1,5 +1,5 @@
 package messages;
 
-public class Download {
+public class Download implements Message {
 
 }

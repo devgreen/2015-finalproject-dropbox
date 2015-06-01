@@ -1,6 +1,8 @@
-package dropbox;
+package clientServerConnection;
 
-public class Chunk {
+import messages.Message;
+
+public class Chunk implements Message {
 
 	private String fileName;
 	private byte bytes[];
