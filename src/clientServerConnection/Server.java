@@ -21,7 +21,7 @@ public class Server implements Incoming {
 		serverSocket = new ServerSocket(1113);
 		messages = new LinkedBlockingQueue<Message>();
 		sockets = new ArrayList<Socket>();
-		perform = new PerformThread(this);
+		perform = new PerformThread(messages);
 		perform.start();
 		fileCache = new FileCache();
 	}

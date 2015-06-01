@@ -1,5 +1,6 @@
 package messages;
 
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -40,5 +41,4 @@ public class Sync implements Message {
 	public void display() {
 		// client will never send a sync message
 	}
-
 }
