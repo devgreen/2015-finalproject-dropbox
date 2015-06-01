@@ -25,6 +25,7 @@ public class Server implements Incoming {
 	}
 
 	public void connectToClients() {
+
 		while (true) {
 			Socket socket;
 			try {

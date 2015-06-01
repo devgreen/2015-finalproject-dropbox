@@ -35,5 +35,6 @@ public class ClientGUI extends JFrame {
 		container.add(south, BorderLayout.SOUTH);
 
 	}
-
+	
+	
 }

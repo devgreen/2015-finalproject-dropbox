@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import messages.Message;
 
@@ -18,6 +17,7 @@ public class ReaderThread extends Thread {
 
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
+
 	}
 
 	@Override
