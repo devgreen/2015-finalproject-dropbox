@@ -26,6 +26,10 @@ public class Server implements Incoming {
 		fileCache = new FileCache();
 	}
 	
+	public List<Socket> getSockets() {
+		return sockets;
+	}
+
 	public LinkedBlockingQueue<Message> getMessages(){
 		return messages;
 	}
