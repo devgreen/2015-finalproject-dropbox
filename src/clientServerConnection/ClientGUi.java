@@ -7,14 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-public class ClientGUI extends JFrame {
+public class ClientGUi extends JFrame {
 
 	private JTextArea area;
 	private JButton upload;
 	private JButton download;
 	private JButton list;
 
-	public ClientGUI() {
+	public ClientGUi() {
 
 		setSize(800, 600);
 		setTitle("Client Chat");
