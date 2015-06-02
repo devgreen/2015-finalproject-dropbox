@@ -18,7 +18,9 @@ public class PerformThread extends Thread {
 		while (true) {
 			try {
 				
-				((Message) messages.take()).perform();
+				Message msg = ((Message) messages.take());
+				System.out.println("message taken");
+				msg.perform();
 				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
