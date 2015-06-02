@@ -9,17 +9,19 @@ import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class ClientGUi extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JTextArea area;
 	private JButton upload;
 	private JButton download;
 	private JButton list;
 	private Client client;
 
-	public ClientGUi(){
+	public ClientGUi() {
 
 		setSize(800, 600);
 		setTitle("Client Chat");
@@ -40,6 +42,8 @@ public class ClientGUi extends JFrame {
 		south.add(upload);
 		south.add(download);
 		container.add(south, BorderLayout.SOUTH);
+		JScrollPane scrollPane = new JScrollPane(area);
+		container.add(scrollPane);
 		try {
 			client = new Client(area);
 		} catch (IOException e) {

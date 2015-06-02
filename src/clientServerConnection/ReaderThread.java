@@ -33,7 +33,6 @@ public class ReaderThread extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String strRcvd;
 			while ((strRcvd = reader.readLine()) != null) {
-				strRcvd = reader.readLine();
 				Message msgRcvd = instantiateMessage(strRcvd);
 				incoming.dealWithMessage(msgRcvd);
 			}
@@ -45,12 +44,8 @@ public class ReaderThread extends Thread {
 
 	private Message instantiateMessage(String strRcvd) {
 
-<<<<<<< HEAD
 		String[] stringSplit = strRcvd.split(" ", 2);
 		System.out.println(stringSplit[0]);
-=======
-		String[] stringSplit = strRcvd.split(" ");
->>>>>>> origin/master
 
 		switch (stringSplit[0]) {
 		case "LIST":
@@ -62,12 +57,8 @@ public class ReaderThread extends Thread {
 			return new ChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
 			return new Download(incoming, stringSplit);
-<<<<<<< HEAD
 		case "FILES":
-=======
-		case "FILES:":
 			System.out.println("entered files case");
->>>>>>> origin/master
 			return new FilesMessage(strRcvd, incoming);
 		case "FILE":
 			return new FileMessage(strRcvd, incoming);
