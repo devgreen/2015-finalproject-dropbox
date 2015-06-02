@@ -50,9 +50,9 @@ public class ClientGUi extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String message = "List";
+			System.out.println("button listener");
+			String message = "LIST";
 			client.write(message);
-
 		}
 
 	};

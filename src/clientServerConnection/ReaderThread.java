@@ -8,6 +8,8 @@ import java.net.Socket;
 
 import messages.ChunkMessage;
 import messages.Download;
+import messages.FileMessage;
+import messages.FilesMessage;
 import messages.ListFiles;
 import messages.Message;
 import messages.Sync;
@@ -44,23 +46,24 @@ public class ReaderThread extends Thread {
 	private Message instantiateMessage(String strRcvd) {
 
 		String[] stringSplit = strRcvd.split(" ", 2);
+		System.out.println(stringSplit[0]);
 
 		switch (stringSplit[0]) {
-		case "List":
+		case "LIST":
 			System.out.println("list message received");
 			return new ListFiles(writer, incoming);
-		case "Sync":
+		case "SYNC":
 			return new Sync(incoming);
-		case "Chunk":
+		case "CHUNK":
 			return new ChunkMessage(incoming, stringSplit);
-		case "Download":
+		case "DOWNLOAD":
 			return new Download(incoming, stringSplit);
-		case "FILE":
-			System.out.println("entered files case");
+		case "FILES":
 			return new FilesMessage(strRcvd, incoming);
+		case "FILE":
+			return new FileMessage(strRcvd, incoming);
 		}
 		System.out.println("I came, but I didn't match any of your criteria.");
-		System.out.println(stringSplit[0]);
 		return null;
 
 	}

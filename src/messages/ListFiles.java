@@ -21,22 +21,16 @@ public class ListFiles implements Message {
 
 	@Override
 	public void perform() {
-		StringBuilder str = new StringBuilder();
-		str.append("FILES: ");
-		str.append(files.size());
+		
+		writer.println("FILES " + files.size());
+		writer.flush();
+
 		for (int i = 0; i < files.size(); i++) {
-			str.append("FILE ");
-			str.append(files.get(i).getName());
-			str.append(" ");
-			str.append(files.get(i).lastModified());
-			str.append(" ");
-			str.append(files.get(i).length());
+			writer.println("FILE " + files.get(i).getName() + " "
+					+ files.get(i).lastModified() + " " + files.get(i).length());
+			writer.flush();
 
 		}
-		System.out.println(str.toString());
-		writer.println(str.toString());
-		writer.flush();
-		System.out.println("files written to writer");
 
 	}
 
