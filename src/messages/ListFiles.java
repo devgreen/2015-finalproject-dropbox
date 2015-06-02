@@ -25,22 +25,22 @@ public class ListFiles implements Message {
 		str.append("FILES: ");
 		str.append(files.size());
 		for (int i = 0; i < files.size(); i++) {
-			str.append("/nFILE ");
+			str.append("\nFILE ");
 			str.append(files.get(i).getName());
 			str.append(" ");
 			str.append(files.get(i).lastModified());
 			str.append(" ");
 			str.append(files.get(i).length());
 		}
-		
+		System.out.println(str.toString());
 		writer.println(str.toString());
 		writer.flush();
+		System.out.println("files written to writer");
 		
 	}
 
 	@Override
 	public void display() {
-		//Client will never perform this method
 	}
 
 }

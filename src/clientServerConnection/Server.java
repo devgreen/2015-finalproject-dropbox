@@ -56,6 +56,7 @@ public class Server implements Incoming {
 
 	@Override
 	public void dealWithMessage(Message message) {
+		System.out.println(message);
 		messages.add(message);
 
 	}

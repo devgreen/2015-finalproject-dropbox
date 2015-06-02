@@ -47,16 +47,20 @@ public class ReaderThread extends Thread {
 		switch(stringSplit[0]){
 
 		case "List":
+			System.out.println("list message received");
 			return new ListFiles(writer, incoming);
 		case "Sync":
 			return new Sync(incoming);
 		case "Chunk":
-
-			return new ChunkMessage(writer, incoming, stringSplit);
-
+			return new ChunkMessage(incoming, stringSplit);
 		case "Download":
-			return new Download();
+			return new Download(incoming, stringSplit);
+		case "FILE":
+			System.out.println ("entered files case");
+			return new FilesMessage(strRcvd, incoming);
 		}
+		System.out.println("I came, but I didn't match any of your criteria.");
+		System.out.println (stringSplit[0]);
 		return null;
 
 	}
