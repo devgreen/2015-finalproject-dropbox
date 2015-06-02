@@ -1,5 +1,6 @@
 package messages;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,20 +21,22 @@ public class Download implements Message {
 
 	@Override
 	public void perform() {
-		String filename = downloadCommand[1];
+		String fileName = downloadCommand[1];
 		int offset = Integer.parseInt(downloadCommand[2]);
-		int chunksize = Integer.parseInt(downloadCommand[3]);
+		int chunkSize = Integer.parseInt(downloadCommand[3]);
 
 		FileCache serverFileCache = server.getFileCache();
 		FileCache clientFileCache = client.getFileCache();
+		File file = new File(fileName);
+		long size = file.length();
+		chunkSize = (int) (size/512);
 
-		int length = fileSize / 512;
-		while (fileSize > 0) {
+		//int length = fileSize / 512;
+		while (size > 0) {
 			try {
-				Chunk chunk = serverFileCache.getChunk(filename, offset,
-						chunkSize);
+				Chunk chunk = serverFileCache.getChunk(fileName, offset, chunkSize);
 				clientFileCache.addChunk(chunk);
-				offset = fileSize - length;
+				offset = (int) (size - chunkSize);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -43,7 +46,6 @@ public class Download implements Message {
 
 	@Override
 	public void display() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -10,12 +10,11 @@ import clientServerConnection.Server;
 
 public class ChunkMessage implements Message {
 
-	//Need access to CLIENT
+	// Need access to CLIENT
 	private Server server;
 	private String[] chunkCommand;
 
-	public ChunkMessage(Incoming server,
-			String[] chunkCommand) {
+	public ChunkMessage(Incoming server, String[] chunkCommand) {
 		this.server = (Server) server;
 		this.chunkCommand = chunkCommand;
 	}
