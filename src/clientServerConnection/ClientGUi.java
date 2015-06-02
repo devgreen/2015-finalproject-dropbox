@@ -20,11 +20,7 @@ public class ClientGUi extends JFrame {
 	private JButton list;
 	private Client client;
 
-<<<<<<< HEAD
-	public ClientGUi() {
-=======
-	public ClientGUI() throws UnknownHostException, IOException {
->>>>>>> origin/master
+	public ClientGUi(){
 
 		setSize(800, 600);
 		setTitle("Client Chat");
