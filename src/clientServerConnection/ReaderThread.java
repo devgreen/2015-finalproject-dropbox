@@ -24,7 +24,7 @@ public class ReaderThread extends Thread {
 
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
-		this.writer = new PrintWriter(clientSocket.getOutputStream());
+		writer = new PrintWriter(clientSocket.getOutputStream());
 	}
 
 	@Override
@@ -45,8 +45,12 @@ public class ReaderThread extends Thread {
 
 	private Message instantiateMessage(String strRcvd) {
 
+<<<<<<< HEAD
 		String[] stringSplit = strRcvd.split(" ", 2);
 		System.out.println(stringSplit[0]);
+=======
+		String[] stringSplit = strRcvd.split(" ");
+>>>>>>> origin/master
 
 		switch (stringSplit[0]) {
 		case "LIST":
@@ -58,7 +62,12 @@ public class ReaderThread extends Thread {
 			return new ChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
 			return new Download(incoming, stringSplit);
+<<<<<<< HEAD
 		case "FILES":
+=======
+		case "FILES:":
+			System.out.println("entered files case");
+>>>>>>> origin/master
 			return new FilesMessage(strRcvd, incoming);
 		case "FILE":
 			return new FileMessage(strRcvd, incoming);

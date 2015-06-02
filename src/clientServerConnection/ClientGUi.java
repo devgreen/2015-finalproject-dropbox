@@ -27,6 +27,8 @@ public class ClientGUi extends JFrame {
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 		area = new JTextArea();
+		area.setLineWrap(true);
+		area.setWrapStyleWord(true);
 		container.add(area, BorderLayout.CENTER);
 		upload = new JButton("upload");
 		download = new JButton("download");

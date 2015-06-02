@@ -34,6 +34,7 @@ public class Client implements Incoming {
 
 	@Override
 	public void dealWithMessage(Message message) {
+		System.out.println ("displaying");
 		message.display();
 	}
 
