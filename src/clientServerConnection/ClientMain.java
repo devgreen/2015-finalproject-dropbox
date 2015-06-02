@@ -1,11 +1,9 @@
 package clientServerConnection;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 
 public class ClientMain {
 
-	public static void main(String args[]) throws UnknownHostException, IOException{
+	public static void main(String args[]){
 		
 		new ClientGUi().setVisible(true);
 
