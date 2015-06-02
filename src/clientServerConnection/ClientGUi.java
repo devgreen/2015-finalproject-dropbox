@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,7 +38,11 @@ public class ClientGUi extends JFrame {
 		south.add(upload);
 		south.add(download);
 		container.add(south, BorderLayout.SOUTH);
-		client = new Client(area);
+		try {
+			client = new Client(area);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
