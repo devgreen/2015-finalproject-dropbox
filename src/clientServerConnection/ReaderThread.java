@@ -22,7 +22,7 @@ public class ReaderThread extends Thread {
 
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
-		writer = new PrintWriter(clientSocket.getOutputStream());
+		this.writer = new PrintWriter(clientSocket.getOutputStream());
 	}
 
 	@Override
@@ -43,9 +43,9 @@ public class ReaderThread extends Thread {
 
 	private Message instantiateMessage(String strRcvd) {
 
-		String[] stringSplit = strRcvd.split(" ");
-		switch(stringSplit[0]){
+		String[] stringSplit = strRcvd.split(" ", 2);
 
+		switch (stringSplit[0]) {
 		case "List":
 			System.out.println("list message received");
 			return new ListFiles(writer, incoming);
@@ -56,11 +56,11 @@ public class ReaderThread extends Thread {
 		case "Download":
 			return new Download(incoming, stringSplit);
 		case "FILE":
-			System.out.println ("entered files case");
+			System.out.println("entered files case");
 			return new FilesMessage(strRcvd, incoming);
 		}
 		System.out.println("I came, but I didn't match any of your criteria.");
-		System.out.println (stringSplit[0]);
+		System.out.println(stringSplit[0]);
 		return null;
 
 	}
