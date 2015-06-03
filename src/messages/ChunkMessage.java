@@ -17,10 +17,14 @@ public class ChunkMessage implements Message {
 
 	@Override
 	public void perform() {
-
-		// if have patience, split into separate named variables - filename,
-		// offset, size
-		Chunk chunk = new Chunk(chunkCommand[1], Integer.parseInt(chunkCommand[4]), Integer.parseInt(chunkCommand[3]));
+		// Whether the server or client receives a Chunk command, its job is to
+		// take the Chunk details, create a Chunk object, and add it to its
+		// FileCache.
+		
+		String fileName = chunkCommand[1];
+		int offSet = Integer.parseInt(chunkCommand[4]);
+		int size = Integer.parseInt(chunkCommand[3]);
+		Chunk chunk = new Chunk(fileName, offSet, size);
 		FileCache fileCache = incoming.getFileCache();
 		try {
 			fileCache.addChunk(chunk);
@@ -36,13 +40,3 @@ public class ChunkMessage implements Message {
 	}
 
 }
-
-/*
- * String fileName = "HelloWorld.txt"; int start = 0; File file = new
- * File(fileName); long fileSize = file.length(); int size = 0;
- * 
- * while (fileSize > 0) { if (fileSize >= 512) { size = 512; fileSize -= 512; }
- * else { size = (int) fileSize; fileSize = 0; } Chunk chunk = new
- * Chunk(fileName, start, size); String chunkStr = chunk.toString(); //
- * writer.println(chunkStr); // writer.flush; start += size + 1; }
- */

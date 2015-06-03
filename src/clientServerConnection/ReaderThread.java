@@ -33,8 +33,13 @@ public class ReaderThread extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String strRcvd;
 			while ((strRcvd = reader.readLine()) != null) {
-				Message msgRcvd = instantiateMessage(strRcvd);
-				incoming.dealWithMessage(msgRcvd);
+				Message msgRcvd;
+				try {
+					msgRcvd = instantiateMessage(strRcvd);
+					incoming.dealWithMessage(msgRcvd);
+				} catch (InvalidMessageException e) {
+					e.getMessage();
+				}
 			}
 
 		} catch (IOException e) {
@@ -42,29 +47,26 @@ public class ReaderThread extends Thread {
 		}
 	}
 
-	private Message instantiateMessage(String strRcvd) {
+	private Message instantiateMessage(String strRcvd) throws InvalidMessageException {
 
 		String[] stringSplit = strRcvd.split(" ", 2);
 		System.out.println(stringSplit[0]);
 
 		switch (stringSplit[0]) {
 		case "LIST":
-			System.out.println("list message received");
 			return new ListFiles(writer, incoming);
 		case "SYNC":
 			return new Sync(incoming);
 		case "CHUNK":
 			return new ChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
-			return new Download(incoming, stringSplit);
+			return new Download(writer, stringSplit);
 		case "FILES":
-			System.out.println("entered files case");
 			return new FilesMessage(strRcvd, incoming);
 		case "FILE":
 			return new FileMessage(strRcvd, incoming);
 		}
-		System.out.println("I came, but I didn't match any of your criteria.");
-		return null;
+		throw new InvalidMessageException();
 
 	}
 

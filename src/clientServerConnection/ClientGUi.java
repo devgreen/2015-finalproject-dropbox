@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,10 +31,11 @@ public class ClientGUi extends JFrame {
 		area.setLineWrap(true);
 		area.setWrapStyleWord(true);
 		container.add(area, BorderLayout.CENTER);
-		upload = new JButton("upload");
-		download = new JButton("download");
-		list = new JButton("list");
-		list.addActionListener(listListener);
+		upload = new JButton("UPLOAD");
+		download = new JButton("DOWNLOAD");
+		list = new JButton("LIST");
+		list.addActionListener(buttonListener);
+		download.addActionListener(buttonListener);
 		Container south = new Container();
 		south.setLayout(new BoxLayout(south, BoxLayout.X_AXIS));
 		south.add(list);
@@ -52,15 +52,17 @@ public class ClientGUi extends JFrame {
 
 	}
 
-	ActionListener listListener = new ActionListener() {
+	ActionListener buttonListener = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("button listener");
-			String message = "LIST";
+			JButton buttonClicked = (JButton) e.getSource();
+			String message = buttonClicked.getText();
+			if(message.equals("UPLOAD") || message.equals("DOWNLOAD")){
+				//get file name, append to message string
+			}
 			client.write(message);
 		}
-
 	};
 
 }
