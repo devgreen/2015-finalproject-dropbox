@@ -29,7 +29,7 @@ public class FileCache {
 		String fileName = chunk.getFileName();
 		File file = new File(fileName);
 		RandomAccessFile random = new RandomAccessFile(file, "rw");
-		random.seek(chunk.getStart());
+		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
 		
@@ -41,9 +41,7 @@ public class FileCache {
 		RandomAccessFile random = new RandomAccessFile(file, "rw");
 		random.read(bytes, start,  length);
 		random.close();
-		return new Chunk (fileName, bytes,start);
-		
-		
-
+		return new Chunk(fileName, start, length);
 	}
+	
 }

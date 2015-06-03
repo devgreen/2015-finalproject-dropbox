@@ -34,6 +34,7 @@ public class Server implements Incoming {
 		return messages;
 	}
 	
+	@Override
 	public FileCache getFileCache(){
 		return fileCache;
 	}

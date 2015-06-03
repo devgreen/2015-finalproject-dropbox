@@ -42,6 +42,7 @@ public class Client implements Incoming {
 		return socket;
 	}
 
+	@Override
 	public FileCache getFileCache() {
 		return fileCache;
 	}

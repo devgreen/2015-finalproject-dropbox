@@ -1,43 +1,31 @@
 package messages;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import clientServerConnection.Chunk;
 import clientServerConnection.FileCache;
 import clientServerConnection.Incoming;
-import clientServerConnection.Server;
 
 public class ChunkMessage implements Message {
 
-	// Need access to CLIENT
-	private Server server;
+	private Incoming incoming;
 	private String[] chunkCommand;
 
-	public ChunkMessage(Incoming server, String[] chunkCommand) {
-		this.server = (Server) server;
+	public ChunkMessage(Incoming incoming, String[] chunkCommand) {
+		this.incoming = incoming;
 		this.chunkCommand = chunkCommand;
 	}
 
 	@Override
 	public void perform() {
-		FileCache serverFileCache = server.getFileCache();
-		FileCache clientFileCache = client.getFileCache();
-		String fileName = chunkCommand[1];
-		// Long lastModified = Long.parseLong(chunkCommand[2]);
-		int fileSize = Integer.parseInt(chunkCommand[3]);
-		int offset = Integer.parseInt(chunkCommand[4]);
-		// String base64encodedbytes = chunkCommand[5];
-		int length = fileSize / 512;
-		while (fileSize > 0) {
-			try {
-				Chunk chunk = clientFileCache.getChunk(fileName, offset, length);
-				serverFileCache.addChunk(chunk);
-				offset = fileSize - length;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
+		// if have patience, split into separate named variables - filename,
+		// offset, size
+		Chunk chunk = new Chunk(chunkCommand[1], Integer.parseInt(chunkCommand[4]), Integer.parseInt(chunkCommand[3]));
+		FileCache fileCache = incoming.getFileCache();
+		try {
+			fileCache.addChunk(chunk);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -48,3 +36,13 @@ public class ChunkMessage implements Message {
 	}
 
 }
+
+/*
+ * String fileName = "HelloWorld.txt"; int start = 0; File file = new
+ * File(fileName); long fileSize = file.length(); int size = 0;
+ * 
+ * while (fileSize > 0) { if (fileSize >= 512) { size = 512; fileSize -= 512; }
+ * else { size = (int) fileSize; fileSize = 0; } Chunk chunk = new
+ * Chunk(fileName, start, size); String chunkStr = chunk.toString(); //
+ * writer.println(chunkStr); // writer.flush; start += size + 1; }
+ */

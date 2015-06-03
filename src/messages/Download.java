@@ -11,16 +11,27 @@ import clientServerConnection.Server;
 
 public class Download implements Message {
 
-	private Server server;
+	private Incoming incoming;
 	private String[] downloadCommand;
 
-	public Download(Incoming server, String[] downloadCommand) {
-		this.server = (Server) server;
+	public Download(Incoming incoming, String[] downloadCommand) {
+		this.incoming = incoming;
 		this.downloadCommand = downloadCommand;
 	}
 
 	@Override
 	public void perform() {
+		
+		FileCache fileCache = incoming.getFileCache();
+		try {
+			Chunk chunk = fileCache.getChunk(downloadCommand[1], Integer.parseInt(downloadCommand[4]), Integer.parseInt(downloadCommand[3]));
+			//writer.println(chunk.toString);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		String fileName = downloadCommand[1];
 		int offset = Integer.parseInt(downloadCommand[2]);
 		int chunkSize = Integer.parseInt(downloadCommand[3]);

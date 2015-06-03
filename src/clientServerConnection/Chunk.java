@@ -1,41 +1,53 @@
 package clientServerConnection;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Base64;
+
 public class Chunk {
 
+	private String encodedBytes;
 	private String fileName;
-	private byte bytes[];
-	private int start;
+	private File file;
+	private byte[] bytes;
+	private Base64.Encoder encoder;
+	private long offSet;
 
-	public Chunk(String fileName, byte[] bytes, int start) {
+	public Chunk(String fileName, long offSet, int size) {
 		this.fileName = fileName;
-		this.bytes = bytes;
-		this.start = start;
+		bytes = new byte[size];
+		File file = new File(fileName);
+		this.offSet = offSet;
+		try {
+			FileInputStream stream = new FileInputStream(file);
+			stream.read(bytes, (int) offSet, size);
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// encode the bytes to a String
+		encodedBytes = encoder.encodeToString(bytes);
 
+	}
+
+	public String toString() {
+		return "CHUNK " + fileName + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
 	}
 
 	public String getFileName() {
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public long getOffSet() {
+		return offSet;
 	}
 
 	public byte[] getBytes() {
 		return bytes;
 	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	public int getStart() {
-		return start;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
-	}
-
 
 }
