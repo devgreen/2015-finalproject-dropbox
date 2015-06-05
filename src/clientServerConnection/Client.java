@@ -22,10 +22,11 @@ public class Client implements Incoming {
 		socket = new Socket("localhost", 1113);
 		ReaderThread thread = new ReaderThread(socket, this);
 		thread.start();
-		fileCache = new FileCache();
+		fileCache = new FileCache("C:/Users/Devora/Documents/client");
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);
 		this.area = area;
+		new ClientCommandThread(socket, this).start();
 	}
 
 	public JTextArea getArea() {

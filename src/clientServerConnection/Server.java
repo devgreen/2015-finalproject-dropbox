@@ -23,7 +23,7 @@ public class Server implements Incoming {
 		sockets = new ArrayList<Socket>();
 		perform = new PerformThread(messages);
 		perform.start();
-		fileCache = new FileCache();
+		fileCache = new FileCache("C:/Users/Devora/Documents/server");
 	}
 	
 	public List<Socket> getSockets() {
@@ -49,7 +49,7 @@ public class Server implements Incoming {
 				//create a thread so that the server can read from the client
 				new ReaderThread(socket, this).start();
 				//create a thread in which commands are sent from the server to the client
-				new CommandThread(socket, this).start();
+				new ServerCommandThread(socket, this).start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

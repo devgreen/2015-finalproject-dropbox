@@ -10,18 +10,19 @@ public class FileCache {
 
 	// this exists on the hard drive
 
-	private static final String ROOT = "C:/Users/Rachel Aziza/Documents";
-	
+	//private static final String ROOT = "C:/Users/Rachel Aziza/Documents";
+	private String directory;
 
-	public FileCache() {
-		new File(ROOT).mkdir();
-		// then do dropbox/username/filename
+	public FileCache(String directory) {
+		this.directory = directory;
+		new File(directory).mkdir();
+		// new File(ROOT).mkdir();
 
 	}
 
 	public List<File> getFiles() {
-		File file = new File (ROOT);
-		File [] lists = file.listFiles();
+		File file = new File(directory);
+		File[] lists = file.listFiles();
 		return Arrays.asList(lists);
 	}
 
@@ -32,16 +33,16 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
-		
+
 	}
 
 	public Chunk getChunk(String fileName, int start, int length) throws IOException {
 		File file = new File(fileName);
-		byte [] bytes = new byte[length] ; 
+		byte[] bytes = new byte[length];
 		RandomAccessFile random = new RandomAccessFile(file, "rw");
-		random.read(bytes, start,  length);
+		random.read(bytes, start, length);
 		random.close();
 		return new Chunk(fileName, start, length);
 	}
-	
+
 }

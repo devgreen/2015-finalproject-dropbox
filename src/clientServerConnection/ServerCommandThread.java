@@ -7,18 +7,18 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandThread extends Thread {
+public class ServerCommandThread extends Thread {
 
 	private Socket clientSocket;
 	private Server server;
 	private PrintWriter writer;
 
-	public CommandThread(Socket clientSocket, Server server){
+	public ServerCommandThread(Socket clientSocket, Server server) {
 		this.clientSocket = clientSocket;
 		this.server = server;
-		try{
+		try {
 			writer = new PrintWriter(clientSocket.getOutputStream());
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -26,18 +26,20 @@ public class CommandThread extends Thread {
 	@Override
 	public void run() {
 
-		writer.println("LIST");
+		//writer.println("LIST");
 		List<File> serverFiles = server.getFileCache().getFiles();
-		while (true){
-			if ( !serverFiles.equals(server.getFileCache().getFiles())){
-				List <File> missing = new ArrayList(server.getFileCache().getFiles());
+		while (true) {
+			if (!serverFiles.equals(server.getFileCache().getFiles())) {
+				System.out.println ("im in the thread");
+				List<File> missing = new ArrayList(server.getFileCache().getFiles());
 				missing.removeAll(serverFiles);
-				for (int i = 0; i<missing.size(); i++){
+				for (int i = 0; i < missing.size(); i++) {
 					writer.println("DOWNLOAD");
 				}
+				serverFiles = server.getFileCache().getFiles();
 			}
 		}
-		
+
 	}
 
 }
