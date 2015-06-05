@@ -32,7 +32,7 @@ public class ClientCommandThread extends Thread {
 				List<File> missing = new ArrayList(client.getFileCache().getFiles());
 				missing.removeAll(clientFiles);
 				for (int i = 0; i < missing.size(); i++) {
-					writer.println("UPLOAD");
+					writer.println("CHUNK");
 				}
 				clientFiles = client.getFileCache().getFiles();
 				writer.println("LIST");
