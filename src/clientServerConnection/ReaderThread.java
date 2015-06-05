@@ -10,6 +10,7 @@ import messages.ChunkMessage;
 import messages.Download;
 import messages.FileMessage;
 import messages.FilesMessage;
+import messages.InvalidMessageException;
 import messages.ListFiles;
 import messages.Message;
 import messages.Sync;

@@ -46,8 +46,10 @@ public class Server implements Incoming {
 			try {
 				socket = serverSocket.accept();
 				sockets.add(socket);
-				ReaderThread thread = new ReaderThread(socket, this);
-				thread.start();
+				//create a thread so that the server can read from the client
+				new ReaderThread(socket, this).start();
+				//create a thread in which commands are sent from the server to the client
+				new CommandThread(socket, this).start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -1,4 +1,4 @@
-package clientServerConnection;
+package messages;
 
 public class InvalidMessageException extends Exception {
 	
