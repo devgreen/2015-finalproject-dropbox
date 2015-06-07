@@ -50,7 +50,7 @@ public class ReaderThread extends Thread {
 
 	private Message instantiateMessage(String strRcvd) throws InvalidMessageException {
 
-		String[] stringSplit = strRcvd.split(" ", 2);
+		String[] stringSplit = strRcvd.split(" ");
 		System.out.println(stringSplit[0]);
 
 		switch (stringSplit[0]) {
@@ -59,6 +59,7 @@ public class ReaderThread extends Thread {
 		case "SYNC":
 			return new Sync(incoming);
 		case "CHUNK":
+			System.out.println ("making a chunk");
 			return new ChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
 			return new Download(writer, stringSplit);

@@ -22,7 +22,7 @@ public class ChunkMessage implements Message {
 		// FileCache.
 		
 		String fileName = chunkCommand[1];
-		int offSet = Integer.parseInt(chunkCommand[4]);
+		int offSet = Integer.parseInt(chunkCommand[2]);
 		int size = Integer.parseInt(chunkCommand[3]);
 		Chunk chunk = new Chunk(fileName, offSet, size);
 		FileCache fileCache = incoming.getFileCache();
