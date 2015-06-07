@@ -16,18 +16,17 @@ public class ListFiles implements Message {
 		this.writer = writer;
 		this.server = (Server) server;
 		files = this.server.getFileCache().getFiles();
-
 	}
 
 	@Override
 	public void perform() {
-		
+
 		writer.println("FILES " + files.size());
 		writer.flush();
 
 		for (int i = 0; i < files.size(); i++) {
-			writer.println("FILE " + files.get(i).getName() + " "
-					+ files.get(i).lastModified() + " " + files.get(i).length());
+			writer.println("FILE " + files.get(i).getName() + " " + files.get(i).lastModified() + " "
+					+ files.get(i).length());
 			writer.flush();
 
 		}
