@@ -28,7 +28,7 @@ public class Sync implements Message {
 			try {
 				OutputStream out = socket.getOutputStream();
 				PrintWriter writer = new PrintWriter(out);
-				writer.println("Sync");
+				writer.println("SYNC");
 				writer.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
