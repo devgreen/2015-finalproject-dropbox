@@ -20,7 +20,7 @@ public class ChunkMessage implements Message {
 		// Whether the server or client receives a Chunk command, its job is to
 		// take the Chunk details, create a Chunk object, and add it to its
 		// FileCache.
-		
+
 		String fileName = chunkCommand[1];
 		int offSet = Integer.parseInt(chunkCommand[2]);
 		int size = Integer.parseInt(chunkCommand[3]);
