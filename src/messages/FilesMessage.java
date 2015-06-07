@@ -20,7 +20,6 @@ public class FilesMessage implements Message {
 
 	@Override
 	public void display() {
-		System.out.println("client " + filesListRcvd);
 		incoming.getArea().append(filesListRcvd + "\n");
 	}
 

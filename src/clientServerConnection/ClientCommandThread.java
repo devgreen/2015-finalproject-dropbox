@@ -26,20 +26,20 @@ public class ClientCommandThread extends Thread {
 	@Override
 	public void run() {
 		client.write("LIST");
-		//client asks for list of files, gets the list of files and one by one adds it to its arraylist of server's files.
+		// client asks for list of files, gets the list of files and one by one
+		// adds it to its arraylist of server's files.
 		List<File> clientFiles = client.getFileCache().getFiles();
 		while (true) {
 			if (!clientFiles.equals(client.getFileCache().getFiles())) {
 				List<File> missing = new ArrayList<File>(client.getFileCache().getFiles());
 				missing.removeAll(clientFiles);
 				for (int i = 0; i < missing.size(); i++) {
-					client.write("CHUNK" + " "+ missing.get(i).getName()+ " 0" + " " + missing.get(i).length());
+					client.write("CHUNK" + " " + missing.get(i).getName() + " 0" + " " + missing.get(i).length());
 				}
 				clientFiles = client.getFileCache().getFiles();
 				client.write("LIST");
 			}
 		}
-
 	}
 
 }

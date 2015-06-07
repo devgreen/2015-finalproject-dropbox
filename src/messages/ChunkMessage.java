@@ -31,7 +31,6 @@ public class ChunkMessage implements Message {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

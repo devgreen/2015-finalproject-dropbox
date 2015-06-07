@@ -57,7 +57,7 @@ public class ReaderThread extends Thread {
 		case "LIST":
 			return new ListFiles(writer, incoming);
 		case "SYNC":
-			return new Sync(incoming);
+			return new Sync(incoming, stringSplit);
 		case "CHUNK":
 			System.out.println ("making a chunk");
 			return new ChunkMessage(incoming, stringSplit);
