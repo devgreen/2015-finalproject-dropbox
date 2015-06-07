@@ -25,17 +25,17 @@ public class ClientCommandThread extends Thread {
 
 	@Override
 	public void run() {
-		writer.println("LIST");
+		client.write("LIST");
 		List<File> clientFiles = client.getFileCache().getFiles();
 		while (true) {
 			if (!clientFiles.equals(client.getFileCache().getFiles())) {
-				List<File> missing = new ArrayList(client.getFileCache().getFiles());
+				List<File> missing = new ArrayList<File>(client.getFileCache().getFiles());
 				missing.removeAll(clientFiles);
 				for (int i = 0; i < missing.size(); i++) {
-					writer.println("CHUNK");
+					client.write("CHUNK");
 				}
 				clientFiles = client.getFileCache().getFiles();
-				writer.println("LIST");
+				client.write("LIST");
 			}
 		}
 
