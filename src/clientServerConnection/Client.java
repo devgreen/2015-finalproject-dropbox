@@ -38,7 +38,7 @@ public class Client implements Incoming {
 
 	@Override
 	public void dealWithMessage(Message message) {
-		System.out.println ("displaying");
+		System.out.println("displaying");
 		message.display();
 	}
 
@@ -54,14 +54,21 @@ public class Client implements Incoming {
 	public PrintWriter getWriter() {
 		return writer;
 	}
-	
-	public void write(String message){
+
+	public void write(String message) {
 		writer.println(message);
 		writer.flush();
 	}
 
 	public void addToServersFiles(String filesListRcvd) {
-		serverFiles.add(filesListRcvd);
+		// gets the string from the file message, so need to split it to get
+		// just the filename - that's all we need
+		String[] temp = filesListRcvd.split(" ");
+		serverFiles.add(temp[1]);
+	}
+
+	public ArrayList<String> getServerFiles() {
+		return serverFiles;
 	}
 
 }
