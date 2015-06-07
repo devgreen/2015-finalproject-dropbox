@@ -28,7 +28,7 @@ public class FileCache {
 
 	public void addChunk(Chunk chunk) throws IOException {
 		String fileName = chunk.getFileName();
-		File file = new File(fileName);
+		File file = new File("C:/Users/Devora/Documents/server/"+ fileName);
 		RandomAccessFile random = new RandomAccessFile(file, "rw");
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
