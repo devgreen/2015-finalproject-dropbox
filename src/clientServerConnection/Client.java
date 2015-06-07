@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
@@ -17,6 +18,7 @@ public class Client implements Incoming {
 	private OutputStream out;
 	private PrintWriter writer;
 	private JTextArea area;
+	private ArrayList<String> serverFiles;
 
 	public Client(JTextArea area) throws UnknownHostException, IOException {
 		socket = new Socket("localhost", 1113);
@@ -26,6 +28,7 @@ public class Client implements Incoming {
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);
 		this.area = area;
+		serverFiles = new ArrayList<String>();
 		new ClientCommandThread(socket, this).start();
 	}
 
@@ -55,6 +58,10 @@ public class Client implements Incoming {
 	public void write(String message){
 		writer.println(message);
 		writer.flush();
+	}
+
+	public void addToServersFiles(String filesListRcvd) {
+		serverFiles.add(filesListRcvd);
 	}
 
 }
