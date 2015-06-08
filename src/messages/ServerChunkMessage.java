@@ -14,12 +14,12 @@ import clientServerConnection.Server;
 
 public class ServerChunkMessage implements Message {
 
-	private Server incoming;
+	private Server server;
 	private String[] chunkCommand;
 	private List<Socket> sockets;
 
 	public ServerChunkMessage(Incoming server, String[] chunkCommand) {
-		this.incoming = (Server) server;
+		this.server = (Server) server;
 		this.chunkCommand = chunkCommand;
 	}
 
@@ -34,15 +34,17 @@ public class ServerChunkMessage implements Message {
 		int size = Integer.parseInt(chunkCommand[2]);
 		String encodedBytes = chunkCommand[5];
 		Chunk chunk = new Chunk(fileName, offSet, size, encodedBytes);
-		FileCache fileCache = incoming.getFileCache();
+		FileCache fileCache = server.getFileCache();
 		try {
 			fileCache.addChunk(chunk);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		//finished uploading entire file
 		if (size - offSet < 512) {
-			sockets = incoming.getSockets();
+			//send sync message to all sockets
+			sockets = server.getSockets();
 			Iterator<Socket> iter = sockets.iterator();
 			while (iter.hasNext()) {
 				Socket socket = iter.next();
@@ -57,6 +59,8 @@ public class ServerChunkMessage implements Message {
 					iter.remove();
 				}
 			}
+			
+			
 
 		}
 

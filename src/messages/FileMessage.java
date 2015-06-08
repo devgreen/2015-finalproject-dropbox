@@ -16,7 +16,10 @@ public class FileMessage implements Message {
 	@Override
 	public void perform() {
 		client.getArea().append(filesListRcvd + "\n");
-		client.addToServersFiles(filesListRcvd);
+		// add the file to the client's list of the server's files - without the
+		// word FILE in it.
+		String[] temp = filesListRcvd.split(" ");
+		client.addToServersFiles(temp[1]);
 	}
 
 }

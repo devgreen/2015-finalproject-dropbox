@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JTextArea;
 
@@ -13,6 +14,7 @@ import messages.Message;
 
 public class Client implements Incoming {
 
+	private LinkedBlockingQueue<Message> messages;
 	private Socket socket;
 	private FileCache fileCache;
 	private OutputStream out;
@@ -23,12 +25,14 @@ public class Client implements Incoming {
 	public Client(JTextArea area) throws UnknownHostException, IOException {
 		socket = new Socket("localhost", 1113);
 		new ClientReaderThread(socket, this).start();
-		fileCache = new FileCache(FileCache.ROOT + "/client");
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);
+		fileCache = new FileCache(FileCache.ROOT + "/client");
 		this.area = area;
 		serverFiles = new ArrayList<String>();
+		messages = new LinkedBlockingQueue<Message>();
 		new ClientCommandThread(socket, this).start();
+		new PerformThread(messages).start();
 	}
 
 	public JTextArea getArea() {
@@ -37,7 +41,7 @@ public class Client implements Incoming {
 
 	@Override
 	public void dealWithMessage(Message message) {
-		message.perform();
+		messages.add(message);
 	}
 
 	public Socket getSocket() {
@@ -54,7 +58,7 @@ public class Client implements Incoming {
 	}
 
 	public void write(String message) {
-		System.out.println (message);
+		System.out.println(message);
 		writer.println(message);
 		writer.flush();
 	}
@@ -62,8 +66,7 @@ public class Client implements Incoming {
 	public void addToServersFiles(String filesListRcvd) {
 		// gets the string from the file message, so need to split it to get
 		// just the filename - that's all we need
-		String[] temp = filesListRcvd.split(" ");
-		serverFiles.add(temp[1]);
+		serverFiles.add(filesListRcvd);
 	}
 
 	public ArrayList<String> getServerFiles() {

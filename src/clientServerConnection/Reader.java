@@ -5,15 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import messages.Download;
-import messages.FileMessage;
-import messages.FilesMessage;
 import messages.InvalidMessageException;
-import messages.ListFiles;
 import messages.Message;
-import messages.ServerChunkMessage;
-import messages.Sync;
+
 
 public abstract class Reader extends Thread{
 	

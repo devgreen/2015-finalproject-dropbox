@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClientCommandThread extends Thread {
 
@@ -32,47 +31,45 @@ public class ClientCommandThread extends Thread {
 
 		// Now it has to compare its files to the ones in the server files list
 		// and downloads and uploads appropriately.
-		ArrayList<String> clientFiles = client.getFileCache()
-				.getFilesAsString();
-		ArrayList<String> serverFiles = client.getServerFiles();
+
+		ArrayList<String> clientFiles;
+		ArrayList<String> serverFiles;
 		clientFilesToBeUploaded = new ArrayList<String>();
-		for (String clientFile : clientFiles) {
-			if (!serverFiles.contains(clientFile)) {
-				clientFilesToBeUploaded.add(clientFile);
-			}
-		}
 		ArrayList<String> serverFilesToBeDownloaded = new ArrayList<String>();
-		for (String serverFile : serverFiles) {
-			if (!clientFiles.contains(serverFile)) {
-				serverFilesToBeDownloaded.add(serverFile);
+
+		while (true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		}
+			clientFiles = client.getFileCache().getFilesAsString();
+			serverFiles = client.getServerFiles();
 
-		for (String fileName : serverFilesToBeDownloaded) {
-			client.write("DOWNLOAD " + fileName);
-		}
+			clientFilesToBeUploaded.clear();
+			for (String clientFile : clientFiles) {
+				if (!serverFiles.contains(clientFile)) {
+					clientFilesToBeUploaded.add(clientFile);
+				}
+			}
 
-		/*
-		 * for(String fileName: clientFilesToBeUploaded){ uploadFile(fileName);
-		 * }
-		 */
-		for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
-			uploadFile(clientFilesToBeUploaded.get(i), i);
-		}
+			serverFilesToBeDownloaded.clear();
+			for (String serverFile : serverFiles) {
+				if (!clientFiles.contains(serverFile)) {
+					serverFilesToBeDownloaded.add(serverFile);
+				}
+			}
 
-		// Then it constantly checks to see if something new has been added to
-		// its file cache.
-		// If so, it uploads it to the Server.
-		/*
-		 * a List<File> clientFiles = client.getFileCache().getFiles(); while
-		 * (true) { if (!clientFiles.equals(client.getFileCache().getFiles())) {
-		 * List<File> missing = new
-		 * ArrayList<File>(client.getFileCache().getFiles());
-		 * missing.removeAll(clientFiles); for (int i = 0; i < missing.size();
-		 * i++) { client.write("CHUNK" + " "+ missing.get(i).getName()+ " 0" +
-		 * " " + missing.get(i).length()); } clientFiles =
-		 * client.getFileCache().getFiles(); client.write("LIST"); } }
-		 */
+			for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
+				uploadFile(clientFilesToBeUploaded.get(i), i);
+			}
+
+			for (String fileName : serverFilesToBeDownloaded) {
+				System.out.println("sending download command for " + fileName);
+				client.write("DOWNLOAD " + fileName);
+			}
+
+		}
 
 	}
 

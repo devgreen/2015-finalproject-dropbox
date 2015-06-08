@@ -21,13 +21,11 @@ public class ClientReaderThread extends Reader{
 	@Override
 	public Message instantiateMessage(String strRcvd) throws InvalidMessageException {
 		String[] stringSplit = strRcvd.split(" ");
-		System.out.println(stringSplit[0]);
+		System.out.println(strRcvd);
 
 		switch (stringSplit[0]) {
-		case "LIST":
-			return new ListFiles(writer, incoming);
 		case "SYNC":
-			return new Sync(writer, stringSplit);
+			return new Sync(writer, incoming, stringSplit);
 		case "CHUNK":
 			return new ClientChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
