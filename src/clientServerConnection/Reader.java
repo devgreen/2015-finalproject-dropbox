@@ -26,6 +26,7 @@ public abstract class Reader extends Thread{
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
 		writer = new PrintWriter(clientSocket.getOutputStream());
+		
 	}
 
 	@Override

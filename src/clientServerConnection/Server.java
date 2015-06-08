@@ -59,7 +59,7 @@ public class Server implements Incoming {
 
 	@Override
 	public void dealWithMessage(Message message) {
-		System.out.println(message);
+		System.out.println("server got message, adding to queue");
 		messages.add(message);
 
 	}

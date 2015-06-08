@@ -19,7 +19,7 @@ public class PerformThread extends Thread {
 			try {
 				
 				Message msg = ((Message) messages.take());
-				System.out.println("message taken");
+				System.out.println("message dequeued");
 				msg.perform();
 				
 			} catch (InterruptedException e) {

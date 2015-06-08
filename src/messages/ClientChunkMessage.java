@@ -1,6 +1,7 @@
 package messages;
 
 import java.io.IOException;
+
 import clientServerConnection.Chunk;
 import clientServerConnection.FileCache;
 import clientServerConnection.Incoming;
@@ -21,10 +22,11 @@ public class ClientChunkMessage implements Message {
 		// take the Chunk details, create a Chunk object, and add it to its
 		// FileCache.
 
-		String fileName = FileCache.ROOT + "/server/" + chunkCommand[1];
+		String fileName = FileCache.ROOT + "/client/" + chunkCommand[1];
 		int offSet = Integer.parseInt(chunkCommand[4]);
-		int size = Integer.parseInt(chunkCommand[3]);
-		Chunk chunk = new Chunk(fileName, offSet, size);
+		int size = Integer.parseInt(chunkCommand[2]);
+		String encodedBytes = chunkCommand[5];
+		Chunk chunk = new Chunk(fileName, offSet, size, encodedBytes);
 		FileCache fileCache = incoming.getFileCache();
 		try {
 			fileCache.addChunk(chunk);

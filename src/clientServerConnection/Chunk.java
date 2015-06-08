@@ -13,6 +13,7 @@ public class Chunk {
 	private File file;
 	private byte[] bytes;
 	private Base64.Encoder encoder;
+	private Base64.Decoder decoder;
 	private long offSet;
 
 	public Chunk(String fileName, int offSet, int size) {
@@ -35,10 +36,18 @@ public class Chunk {
 
 	}
 
+	public Chunk(String fileName, int offSet, int size, String encodedBytes) {
+		this.fileName = fileName;
+		this.offSet = offSet;
+		decoder = Base64.getDecoder();
+		this.bytes = decoder.decode(encodedBytes);
+	}
+
 	public String toString() {
 		String[] fileNameSplit = fileName.split("/");
-		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length-1];
-		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
+		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length - 1];
+		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " "
+				+ file.lastModified() + " " + offSet + " " + encodedBytes;
 	}
 
 	public String getFileName() {

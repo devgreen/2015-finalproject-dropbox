@@ -77,7 +77,7 @@ public class ClientCommandThread extends Thread {
 	}
 
 	private void uploadFile(String fileName, int i) {
-		//File file = new File(FileCache.ROOT + "/server/" + fileName);
+		// File file = new File(FileCache.ROOT + "/server/" + fileName);
 		File fileUploading = new File(FileCache.ROOT + "/client/" + fileName);
 		int start = 0;
 		long fileSize = fileUploading.length();
@@ -91,7 +91,8 @@ public class ClientCommandThread extends Thread {
 				size = (int) fileSize;
 				fileSize = 0;
 			}
-			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
+			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName,
+					start, size);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();

@@ -2,7 +2,9 @@ package messages;
 
 import java.io.File;
 import java.io.PrintWriter;
+
 import clientServerConnection.Chunk;
+import clientServerConnection.FileCache;
 
 public class Download implements Message {
 
@@ -20,7 +22,7 @@ public class Download implements Message {
 		// separate it into Chunks and send those Chunk commands across the
 		// socket.
 		String fileName = downloadCommand[1];
-		File file = new File("C:/Users/Rachel Aziza/Documents/server/" + fileName);
+		File file = new File(FileCache.ROOT + "/client/" + fileName);
 		int start = 0;
 		long fileSize = file.length();
 		int size = 0;
@@ -33,7 +35,7 @@ public class Download implements Message {
 				size = (int) fileSize;
 				fileSize = 0;
 			}
-			Chunk chunk = new Chunk(fileName, start, size);
+			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush(); 
