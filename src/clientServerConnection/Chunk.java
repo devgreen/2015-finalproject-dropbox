@@ -18,13 +18,13 @@ public class Chunk {
 
 	public Chunk(String fileName, int offSet, int size) {
 		this.fileName = fileName;
-		bytes = new byte[size];
+		bytes = new byte[size + offSet];
 		encoder = Base64.getEncoder();
 		file = new File(fileName);
 		this.offSet = offSet;
 		try {
 			FileInputStream stream = new FileInputStream(fileName);
-			stream.read(bytes, (int) offSet, size);
+			stream.read(bytes, (int) offSet, bytes.length - offSet);
 			stream.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

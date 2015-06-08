@@ -11,7 +11,8 @@ public class FileCache {
 
 	// this exists on the hard drive
 
-	public static final String ROOT = "C:/Users/Devora/Documents";
+	//public static final String ROOT = "C:/Users/Devora/Documents/GitHub/2015-finalproject/dropbox";
+	public static final String ROOT = "./";
 	private String directory;
 
 	public FileCache(String directory) {

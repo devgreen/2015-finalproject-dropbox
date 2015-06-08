@@ -31,7 +31,7 @@ public class ServerCommandThread extends Thread {
 		while (true) {
 			if (!serverFiles.equals(server.getFileCache().getFiles())) {
 				System.out.println ("im in the thread");
-				List<File> missing = new ArrayList(server.getFileCache().getFiles());
+				List<File> missing = new ArrayList<File>(server.getFileCache().getFiles());
 				missing.removeAll(serverFiles);
 				for (int i = 0; i < missing.size(); i++) {
 					writer.println("DOWNLOAD");

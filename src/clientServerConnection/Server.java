@@ -18,7 +18,7 @@ public class Server implements Incoming {
 	private FileCache fileCache;
 
 	public Server() throws IOException {
-		serverSocket = new ServerSocket(1113);
+		serverSocket = new ServerSocket(1119);
 		messages = new LinkedBlockingQueue<Message>();
 		sockets = new ArrayList<Socket>();
 		perform = new PerformThread(messages);

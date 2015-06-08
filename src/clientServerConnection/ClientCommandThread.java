@@ -88,8 +88,7 @@ public class ClientCommandThread extends Thread {
 				size = (int) fileSize;
 				fileSize = 0;
 			}
-			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName,
-					start, size);
+			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();

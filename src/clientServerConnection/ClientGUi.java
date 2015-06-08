@@ -15,8 +15,6 @@ public class ClientGUi extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextArea area;
-	private JButton upload;
-	private JButton download;
 	private JButton list;
 	private Client client;
 
@@ -31,16 +29,11 @@ public class ClientGUi extends JFrame {
 		area.setLineWrap(true);
 		area.setWrapStyleWord(true);
 		container.add(area, BorderLayout.CENTER);
-		upload = new JButton("UPLOAD");
-		download = new JButton("DOWNLOAD");
 		list = new JButton("LIST");
 		list.addActionListener(buttonListener);
-		download.addActionListener(buttonListener);
 		Container south = new Container();
 		south.setLayout(new BoxLayout(south, BoxLayout.X_AXIS));
 		south.add(list);
-		south.add(upload);
-		south.add(download);
 		container.add(south, BorderLayout.SOUTH);
 		JScrollPane scrollPane = new JScrollPane(area);
 		container.add(scrollPane);
@@ -58,9 +51,6 @@ public class ClientGUi extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JButton buttonClicked = (JButton) e.getSource();
 			String message = buttonClicked.getText();
-			if(message.equals("UPLOAD") || message.equals("DOWNLOAD")){
-				//get file name, append to message string
-			}
 			client.write(message);
 		}
 	};

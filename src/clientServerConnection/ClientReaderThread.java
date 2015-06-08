@@ -28,8 +28,8 @@ public class ClientReaderThread extends Reader{
 			return new Sync(writer, incoming, stringSplit);
 		case "CHUNK":
 			return new ClientChunkMessage(incoming, stringSplit);
-		case "DOWNLOAD":
-			return new Download(writer, stringSplit);
+		/*case "DOWNLOAD":
+			return new Download(writer, stringSplit);*/
 		case "FILES":
 			return new FilesMessage(strRcvd, incoming);
 		case "FILE":

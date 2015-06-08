@@ -23,7 +23,7 @@ public class Client implements Incoming {
 	private ArrayList<String> serverFiles;
 
 	public Client(JTextArea area) throws UnknownHostException, IOException {
-		socket = new Socket("localhost", 1113);
+		socket = new Socket("localhost", 1119);
 		new ClientReaderThread(socket, this).start();
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);

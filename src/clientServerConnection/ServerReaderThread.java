@@ -2,15 +2,11 @@ package clientServerConnection;
 
 import java.io.IOException;
 import java.net.Socket;
-
 import messages.Download;
-import messages.FileMessage;
-import messages.FilesMessage;
 import messages.InvalidMessageException;
 import messages.ListFiles;
 import messages.Message;
 import messages.ServerChunkMessage;
-import messages.Sync;
 
 public class ServerReaderThread extends Reader {
 
