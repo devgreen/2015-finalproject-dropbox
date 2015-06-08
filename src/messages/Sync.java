@@ -1,15 +1,7 @@
 package messages;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Iterator;
-import java.util.List;
-
 import clientServerConnection.Client;
-import clientServerConnection.Incoming;
-import clientServerConnection.Server;
 
 public class Sync implements Message {
 
@@ -25,13 +17,9 @@ public class Sync implements Message {
 
 	@Override
 	public void perform() {
-		writer.println("DOWNLOAD" + syncCommand[1]);
+		writer.println("DOWNLOAD " + syncCommand[1]);
 		writer.flush();
 
 	}
 
-	@Override
-	public void display() {
-		// client will never send a sync message
-	}
 }

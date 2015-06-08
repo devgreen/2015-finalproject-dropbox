@@ -35,7 +35,7 @@ public class ClientCommandThread extends Thread {
 		ArrayList<String> clientFiles = client.getFileCache()
 				.getFilesAsString();
 		ArrayList<String> serverFiles = client.getServerFiles();
-	    clientFilesToBeUploaded = new ArrayList<String>();
+		clientFilesToBeUploaded = new ArrayList<String>();
 		for (String clientFile : clientFiles) {
 			if (!serverFiles.contains(clientFile)) {
 				clientFilesToBeUploaded.add(clientFile);
@@ -51,19 +51,20 @@ public class ClientCommandThread extends Thread {
 		for (String fileName : serverFilesToBeDownloaded) {
 			client.write("DOWNLOAD " + fileName);
 		}
-		
-		/*for(String fileName: clientFilesToBeUploaded){
-			uploadFile(fileName);
-		}*/
-		for (int i = 0; i<clientFilesToBeUploaded.size(); i++){
-			uploadFile(clientFilesToBeUploaded.get(i),i);
+
+		/*
+		 * for(String fileName: clientFilesToBeUploaded){ uploadFile(fileName);
+		 * }
+		 */
+		for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
+			uploadFile(clientFilesToBeUploaded.get(i), i);
 		}
 
 		// Then it constantly checks to see if something new has been added to
 		// its file cache.
 		// If so, it uploads it to the Server.
-		/*a
-		 * List<File> clientFiles = client.getFileCache().getFiles(); while
+		/*
+		 * a List<File> clientFiles = client.getFileCache().getFiles(); while
 		 * (true) { if (!clientFiles.equals(client.getFileCache().getFiles())) {
 		 * List<File> missing = new
 		 * ArrayList<File>(client.getFileCache().getFiles());
@@ -73,12 +74,11 @@ public class ClientCommandThread extends Thread {
 		 * client.getFileCache().getFiles(); client.write("LIST"); } }
 		 */
 
-
 	}
 
 	private void uploadFile(String fileName, int i) {
-		File file = new File("C:/Users/Devora/Documents/server/" + fileName);
-		File fileUploading = new File ("C:/Users/Devora/Documents/client/" + fileName);
+		//File file = new File(FileCache.ROOT + "/server/" + fileName);
+		File fileUploading = new File(FileCache.ROOT + "/client/" + fileName);
 		int start = 0;
 		long fileSize = fileUploading.length();
 		int size = 0;
@@ -91,12 +91,11 @@ public class ClientCommandThread extends Thread {
 				size = (int) fileSize;
 				fileSize = 0;
 			}
-			Chunk chunk = new Chunk(fileName,start, size);
+			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
-			writer.flush(); 
-			start += size + 1; 
-			}
+			writer.flush();
+			start += size + 1;
 		}
 	}
-
+}

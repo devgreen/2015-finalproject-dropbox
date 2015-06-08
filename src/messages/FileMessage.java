@@ -3,7 +3,7 @@ package messages;
 import clientServerConnection.Client;
 import clientServerConnection.Incoming;
 
-public class FileMessage implements Message{
+public class FileMessage implements Message {
 
 	private String filesListRcvd;
 	private Client client;
@@ -15,12 +15,6 @@ public class FileMessage implements Message{
 
 	@Override
 	public void perform() {
-
-	}
-
-	@Override
-	public void display() {
-
 		client.getArea().append(filesListRcvd + "\n");
 		client.addToServersFiles(filesListRcvd);
 	}

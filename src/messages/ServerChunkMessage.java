@@ -29,7 +29,7 @@ public class ServerChunkMessage implements Message {
 		// take the Chunk details, create a Chunk object, and add it to its
 		// FileCache.
 
-		String fileName = chunkCommand[1];
+		String fileName = FileCache.ROOT + "/client/" + chunkCommand[1];
 		int offSet = Integer.parseInt(chunkCommand[4]);
 		int size = Integer.parseInt(chunkCommand[2]);
 		Chunk chunk = new Chunk(fileName, offSet, size);
@@ -48,7 +48,8 @@ public class ServerChunkMessage implements Message {
 				try {
 					OutputStream out = socket.getOutputStream();
 					PrintWriter writer = new PrintWriter(out);
-					writer.println("SYNC" + " " + chunkCommand[1] + " " + chunkCommand[3]);
+					writer.println("SYNC" + " " + chunkCommand[1] + " "
+							+ chunkCommand[3]);
 					writer.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -58,11 +59,6 @@ public class ServerChunkMessage implements Message {
 
 		}
 
-	}
-
-	@Override
-	public void display() {
-		// Println "Upload on Process" on client gui, if exists
 	}
 
 }

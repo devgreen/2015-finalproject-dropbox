@@ -11,7 +11,7 @@ public class FileCache {
 
 	// this exists on the hard drive
 
-	// private static final String ROOT = "C:/Users/Rachel Aziza/Documents";
+	public static final String ROOT = "C:/Users/Rachel Aziza/Documents";
 	private String directory;
 
 	public FileCache(String directory) {
@@ -39,7 +39,7 @@ public class FileCache {
 
 	public void addChunk(Chunk chunk) throws IOException {
 		String fileName = chunk.getFileName();
-		File file = new File("C:/Users/Devora/Documents/server/" + fileName);
+		File file = new File(fileName);
 		RandomAccessFile random = new RandomAccessFile(file, "rw");
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());

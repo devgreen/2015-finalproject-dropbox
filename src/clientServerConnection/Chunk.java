@@ -19,10 +19,10 @@ public class Chunk {
 		this.fileName = fileName;
 		bytes = new byte[size];
 		encoder = Base64.getEncoder();
-		file = new File("C:/Users/Devora/Documents/client/" + fileName);
+		file = new File(fileName);
 		this.offSet = offSet;
 		try {
-			FileInputStream stream = new FileInputStream("C:/Users/Devora/Documents/client/" + fileName);
+			FileInputStream stream = new FileInputStream(fileName);
 			stream.read(bytes, (int) offSet, size);
 			stream.close();
 		} catch (FileNotFoundException e) {
@@ -36,7 +36,9 @@ public class Chunk {
 	}
 
 	public String toString() {
-		return "CHUNK " + fileName + " " + file.length() + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
+		String[] fileNameSplit = fileName.split("/");
+		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length-1];
+		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
 	}
 
 	public String getFileName() {

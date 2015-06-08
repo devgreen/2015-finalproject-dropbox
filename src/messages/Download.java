@@ -20,7 +20,7 @@ public class Download implements Message {
 		// separate it into Chunks and send those Chunk commands across the
 		// socket.
 		String fileName = downloadCommand[1];
-		File file = new File("C:/Users/Devora/Documents/server/" + fileName);
+		File file = new File("C:/Users/Rachel Aziza/Documents/server/" + fileName);
 		int start = 0;
 		long fileSize = file.length();
 		int size = 0;
@@ -40,12 +40,6 @@ public class Download implements Message {
 			start += size + 1; 
 			}
 		}
-
-
-	@Override
-	public void display() {
-
-	}
 
 }
 

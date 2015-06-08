@@ -15,12 +15,8 @@ public class FilesMessage implements Message {
 
 	@Override
 	public void perform() {
-
-	}
-
-	@Override
-	public void display() {
 		incoming.getArea().append(filesListRcvd + "\n");
+
 	}
 
 }
