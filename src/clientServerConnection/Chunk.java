@@ -1,7 +1,6 @@
 package clientServerConnection;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -31,7 +30,7 @@ public class Chunk {
 
 			RandomAccessFile random = new RandomAccessFile(file, "rw");
 			random.seek(offSet);
-			random.write(bytes);
+			random.read(bytes);
 			random.close();
 
 		} catch (FileNotFoundException e) {

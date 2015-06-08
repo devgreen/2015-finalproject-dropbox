@@ -92,7 +92,7 @@ public class ClientCommandThread extends Thread {
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();
-			start += size + 1;
+			start += size;
 		}
 	}
 }
