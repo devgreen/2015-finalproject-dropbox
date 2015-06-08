@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Base64;
 
 public class Chunk {
@@ -23,9 +24,10 @@ public class Chunk {
 		file = new File(fileName);
 		this.offSet = offSet;
 		try {
-			FileInputStream stream = new FileInputStream(fileName);
-			stream.read(bytes, (int) offSet, size);
-			stream.close();
+			RandomAccessFile random = new RandomAccessFile(file, "rw");
+			random.seek(offSet);
+			random.write(bytes);
+			random.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
