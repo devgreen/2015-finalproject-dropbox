@@ -22,7 +22,7 @@ public class Download implements Message {
 		// separate it into Chunks and send those Chunk commands across the
 		// socket.
 		String fileName = downloadCommand[1];
-		File file = new File(FileCache.ROOT + "/client/" + fileName);
+		File file = new File(FileCache.ROOT + "/server/" + fileName);
 		int start = 0;
 		long fileSize = file.length();
 		int size = 0;
@@ -35,7 +35,7 @@ public class Download implements Message {
 				size = (int) fileSize;
 				fileSize = 0;
 			}
-			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
+			Chunk chunk = new Chunk(FileCache.ROOT + "/server/" + fileName, start, size);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush(); 

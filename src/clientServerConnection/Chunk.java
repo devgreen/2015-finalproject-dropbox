@@ -43,6 +43,7 @@ public class Chunk {
 		this.bytes = decoder.decode(encodedBytes);
 	}
 
+	@Override
 	public String toString() {
 		String[] fileNameSplit = fileName.split("/");
 		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length - 1];
