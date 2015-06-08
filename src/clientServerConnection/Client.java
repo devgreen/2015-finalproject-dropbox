@@ -55,6 +55,7 @@ public class Client implements Incoming {
 	}
 
 	public void write(String message) {
+		System.out.println (message);
 		writer.println(message);
 		writer.flush();
 	}

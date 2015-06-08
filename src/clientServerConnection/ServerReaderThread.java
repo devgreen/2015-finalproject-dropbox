@@ -16,7 +16,6 @@ public class ServerReaderThread extends Reader{
 
 	public ServerReaderThread(Socket clientSocket, Incoming incoming) throws IOException {
 		super(clientSocket, incoming);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
