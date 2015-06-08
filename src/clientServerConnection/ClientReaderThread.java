@@ -3,7 +3,7 @@ package clientServerConnection;
 import java.io.IOException;
 import java.net.Socket;
 
-import messages.ChunkMessage;
+import messages.ClientChunkMessage;
 import messages.Download;
 import messages.FileMessage;
 import messages.FilesMessage;
@@ -29,7 +29,7 @@ public class ClientReaderThread extends Reader{
 		case "SYNC":
 			return new Sync(writer, stringSplit);
 		case "CHUNK":
-			return new ChunkMessage(incoming, stringSplit);
+			return new ClientChunkMessage(incoming, stringSplit);
 		case "DOWNLOAD":
 			return new Download(writer, stringSplit);
 		case "FILES":
