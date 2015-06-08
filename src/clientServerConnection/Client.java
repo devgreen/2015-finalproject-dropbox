@@ -22,8 +22,7 @@ public class Client implements Incoming {
 
 	public Client(JTextArea area) throws UnknownHostException, IOException {
 		socket = new Socket("localhost", 1113);
-		ReaderThread thread = new ReaderThread(socket, this);
-		thread.start();
+		new ClientReaderThread(socket, this).start();
 		fileCache = new FileCache("C:/Users/Devora/Documents/client");
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);

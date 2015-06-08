@@ -47,7 +47,7 @@ public class Server implements Incoming {
 				socket = serverSocket.accept();
 				sockets.add(socket);
 				//create a thread so that the server can read from the client
-				new ReaderThread(socket, this).start();
+				new ServerReaderThread(socket, this).start();
 				//create a thread in which commands are sent from the server to the client
 				new ServerCommandThread(socket, this).start();
 			} catch (IOException e) {

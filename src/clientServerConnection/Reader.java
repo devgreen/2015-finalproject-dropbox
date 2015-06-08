@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 import messages.Download;
 import messages.FileMessage;
 import messages.FilesMessage;
@@ -14,13 +15,13 @@ import messages.Message;
 import messages.ServerChunkMessage;
 import messages.Sync;
 
-public class ReaderThread extends Thread {
-
+public abstract class Reader extends Thread{
+	
 	private Socket clientSocket;
-	private Incoming incoming;
-	private PrintWriter writer;
+	protected Incoming incoming;
+	protected PrintWriter writer;
 
-	public ReaderThread(Socket clientSocket, Incoming incoming) throws IOException {
+	public Reader(Socket clientSocket, Incoming incoming) throws IOException {
 
 		this.clientSocket = clientSocket;
 		this.incoming = incoming;
@@ -47,27 +48,6 @@ public class ReaderThread extends Thread {
 		}
 	}
 
-	private Message instantiateMessage(String strRcvd) throws InvalidMessageException {
-
-		String[] stringSplit = strRcvd.split(" ");
-		System.out.println(stringSplit[0]);
-
-		switch (stringSplit[0]) {
-		case "LIST":
-			return new ListFiles(writer, incoming);
-		case "SYNC":
-			return new Sync(writer, stringSplit);
-		case "CHUNK":
-			return new ServerChunkMessage(incoming, stringSplit);
-		case "DOWNLOAD":
-			return new Download(writer, stringSplit);
-		case "FILES":
-			return new FilesMessage(strRcvd, incoming);
-		case "FILE":
-			return new FileMessage(strRcvd, incoming);
-		}
-		throw new InvalidMessageException();
-
-	}
+	public abstract Message instantiateMessage(String strRcvd) throws InvalidMessageException;
 
 }

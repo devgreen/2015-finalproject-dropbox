@@ -1,6 +1,5 @@
 package messages;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -15,18 +14,20 @@ import clientServerConnection.Server;
 public class Sync implements Message {
 
 	private Client client;
-	private String [] syncCommand;
-	
+	private String[] syncCommand;
+	private PrintWriter writer;
 
-	public Sync(Incoming client, String[] syncCommand) {
+	public Sync(PrintWriter writer, String[] syncCommand) {
 		this.client = (Client) client;
 		this.syncCommand = syncCommand;
+		this.writer = writer;
 	}
 
 	@Override
 	public void perform() {
-		client.write("DOWNLOAD" + syncCommand[1]);
-	
+		writer.println("DOWNLOAD" + syncCommand[1]);
+		writer.flush();
+
 	}
 
 	@Override

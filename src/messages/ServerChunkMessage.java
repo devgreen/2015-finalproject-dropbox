@@ -6,8 +6,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
+
 import clientServerConnection.Chunk;
 import clientServerConnection.FileCache;
+import clientServerConnection.Incoming;
 import clientServerConnection.Server;
 
 public class ServerChunkMessage implements Message {
@@ -16,8 +18,8 @@ public class ServerChunkMessage implements Message {
 	private String[] chunkCommand;
 	private List<Socket> sockets;
 
-	public ServerChunkMessage(Server server, String[] chunkCommand) {
-		this.incoming = server;
+	public ServerChunkMessage(Incoming server, String[] chunkCommand) {
+		this.incoming = (Server) server;
 		this.chunkCommand = chunkCommand;
 	}
 
@@ -28,8 +30,8 @@ public class ServerChunkMessage implements Message {
 		// FileCache.
 
 		String fileName = chunkCommand[1];
-		int offSet = Integer.parseInt(chunkCommand[2]);
-		int size = Integer.parseInt(chunkCommand[3]);
+		int offSet = Integer.parseInt(chunkCommand[4]);
+		int size = Integer.parseInt(chunkCommand[2]);
 		Chunk chunk = new Chunk(fileName, offSet, size);
 		FileCache fileCache = incoming.getFileCache();
 		try {
@@ -38,7 +40,7 @@ public class ServerChunkMessage implements Message {
 			e.printStackTrace();
 		}
 
-		if (size - offSet <= 512) {
+		if (size - offSet < 512) {
 			sockets = incoming.getSockets();
 			Iterator<Socket> iter = sockets.iterator();
 			while (iter.hasNext()) {

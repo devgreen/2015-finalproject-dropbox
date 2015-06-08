@@ -15,11 +15,11 @@ public class Chunk {
 	private Base64.Encoder encoder;
 	private long offSet;
 
-	public Chunk(String fileName, long offSet, int size) {
+	public Chunk(String fileName, int offSet, int size) {
 		this.fileName = fileName;
 		bytes = new byte[size];
 		encoder = Base64.getEncoder();
-		File file = new File(fileName);
+		file = new File("C:/Users/Devora/Documents/client/" + fileName);
 		this.offSet = offSet;
 		try {
 			FileInputStream stream = new FileInputStream("C:/Users/Devora/Documents/client/" + fileName);
@@ -36,7 +36,7 @@ public class Chunk {
 	}
 
 	public String toString() {
-		return "CHUNK " + fileName + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
+		return "CHUNK " + fileName + " " + file.length() + " " + file.lastModified() + " " + offSet + " " + encodedBytes;
 	}
 
 	public String getFileName() {
