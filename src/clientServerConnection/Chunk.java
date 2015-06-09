@@ -47,10 +47,12 @@ public class Chunk {
 	public Chunk(String fileName, int offSet, int size, long lastModified,String encodedBytes) {
 		this.fileName = fileName;
 		file = new File(fileName);
-		file.setLastModified(lastModified);
 		this.offSet = offSet;
 		decoder = Base64.getDecoder();
 		this.bytes = decoder.decode(encodedBytes);
+		System.out.println ("setting last modified in chunk");
+		file.setLastModified(lastModified);
+
 	}
 
 	@Override

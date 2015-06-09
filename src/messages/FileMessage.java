@@ -22,6 +22,7 @@ public class FileMessage implements Message {
 		//client.addToServersFiles(temp[1]);
 		//client.addToServersFiles(temp[2]);
 		client.addToServerFileInfo(temp[1], Long.parseLong(temp[2]));
+		client.addToServersFiles(temp[1]);
 	}
 
 }
