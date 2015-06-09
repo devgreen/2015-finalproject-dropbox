@@ -66,7 +66,7 @@ public class ClientCommandThread extends Thread {
 			}
 
 			serverFilesToBeDownloaded.clear();
-		/*	for (String serverFile : serverFiles) {
+			for (String serverFile : serverFiles) {
 				if (!clientFileInfo.containsKey(serverFile)) {
 					serverFilesToBeDownloaded.add(serverFile);
 				} else if (clientFileInfo.containsKey(serverFile)) {
@@ -74,7 +74,7 @@ public class ClientCommandThread extends Thread {
 						serverFilesToBeDownloaded.add(serverFile);
 					}
 				}
-			}*/
+			}
 
 			for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
 				uploadFile(clientFilesToBeUploaded.get(i));
