@@ -33,8 +33,9 @@ public class ClientCommandThread extends Thread {
 		// Now it has to compare its files to the ones in the server files list
 		// and downloads and uploads appropriately.
 
+		ArrayList<String> clientFiles;
 		ArrayList<String> serverFiles;
-		Map<String, Long> serverFileInfo;
+		Map <String, Long> serverFileInfo;
 		clientFilesToBeUploaded = new ArrayList<String>();
 		ArrayList<String> serverFilesToBeDownloaded = new ArrayList<String>();
 
@@ -44,40 +45,42 @@ public class ClientCommandThread extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			ArrayList<String> clientFiles = client.getFileCache().getFilesAsString();
+			clientFiles = client.getFileCache().getFilesAsString();
 			serverFiles = client.getServerFiles();
 			Map<String, Long> clientFileInfo = client.getFileCache().getFileInfo();
 			serverFileInfo = client.getServerFileInfo();
 
 			clientFilesToBeUploaded.clear();
-			/*
-			 * for (String clientFile : clientFiles) { if
-			 * (!serverFiles.contains(clientFile)) {
-			 * clientFilesToBeUploaded.add(clientFile); } }
-			 */
+			/*for (String clientFile : clientFiles) {
+				if (!serverFiles.contains(clientFile)) {
+					clientFilesToBeUploaded.add(clientFile);
+				}
+			}*/
 			for (String clientFile : clientFiles) {
 				if (!serverFileInfo.containsKey(clientFile)) {
 					clientFilesToBeUploaded.add(clientFile);
-				} else if (serverFileInfo.containsKey(clientFile)) {
-					if (!(serverFileInfo.get(clientFile).longValue() ==(clientFileInfo.get(clientFile)).longValue())) {
+				}
+				else if (serverFileInfo.containsKey(clientFile)){
+					if (!(serverFileInfo.get(clientFile).equals(clientFileInfo.get(clientFile)))){
 						clientFilesToBeUploaded.add(clientFile);
 					}
 				}
 			}
 
 			serverFilesToBeDownloaded.clear();
-		/*	for (String serverFile : serverFiles) {
+			for (String serverFile : serverFiles) {
 				if (!clientFileInfo.containsKey(serverFile)) {
 					serverFilesToBeDownloaded.add(serverFile);
-				} else if (clientFileInfo.containsKey(serverFile)) {
-					if (!(clientFileInfo.get(serverFile).equals(serverFileInfo.get(serverFile)))) {
+				}
+				else if (clientFileInfo.containsKey(serverFile)){
+					if (!(clientFileInfo.get(serverFile).equals(serverFileInfo.get(serverFile)))){
 						serverFilesToBeDownloaded.add(serverFile);
 					}
 				}
-			}*/
+			}
 
 			for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
-				uploadFile(clientFilesToBeUploaded.get(i));
+				uploadFile(clientFilesToBeUploaded.get(i), clientFileInfo.get(clientFilesToBeUploaded.get(i)));
 			}
 
 			for (String fileName : serverFilesToBeDownloaded) {
@@ -89,7 +92,7 @@ public class ClientCommandThread extends Thread {
 
 	}
 
-	private void uploadFile(String fileName) {
+	private void uploadFile(String fileName, long lastModified) {
 		// File file = new File(FileCache.ROOT + "/server/" + fileName);
 		File fileUploading = new File(FileCache.ROOT + "/client/" + fileName);
 		int start = 0;
@@ -105,7 +108,7 @@ public class ClientCommandThread extends Thread {
 				fileSize = 0;
 			}
 			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
-			//chunk.setLastModified(fileUploading.lastModified());
+			chunk.setLastModified(lastModified);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();
