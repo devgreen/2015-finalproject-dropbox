@@ -22,7 +22,6 @@ public class Sync implements Message {
 		// a sync message came in, which means the server now has a new file, so
 		// add it to the client's running list of the server's files
 		client.addToServersFiles(syncCommand[1]);
-		client.addToServerFileInfo(syncCommand[1], Long.parseLong(syncCommand[2]));
 		// and now request a download of that file
 		writer.println("DOWNLOAD " + syncCommand[1]);
 		writer.flush();
