@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ClientCommandThread extends Thread {
 
@@ -35,7 +34,6 @@ public class ClientCommandThread extends Thread {
 
 		ArrayList<String> clientFiles;
 		ArrayList<String> serverFiles;
-		Map <String, Long> serverFileInfo;
 		clientFilesToBeUploaded = new ArrayList<String>();
 		ArrayList<String> serverFilesToBeDownloaded = new ArrayList<String>();
 
@@ -47,23 +45,11 @@ public class ClientCommandThread extends Thread {
 			}
 			clientFiles = client.getFileCache().getFilesAsString();
 			serverFiles = client.getServerFiles();
-			Map<String, Long> clientFileInfo = client.getFileCache().getFileInfo();
-			serverFileInfo = client.getServerFileInfo();
 
 			clientFilesToBeUploaded.clear();
-			/*for (String clientFile : clientFiles) {
+			for (String clientFile : clientFiles) {
 				if (!serverFiles.contains(clientFile)) {
 					clientFilesToBeUploaded.add(clientFile);
-				}
-			}*/
-			for (String clientFile : clientFiles) {
-				if (!serverFileInfo.containsKey(clientFile)) {
-					clientFilesToBeUploaded.add(clientFile);
-				}
-				else if (serverFileInfo.containsKey(clientFile)){
-					if (!(serverFileInfo.get(clientFile) == clientFileInfo.get(clientFile))){
-						clientFilesToBeUploaded.add(clientFile);
-					}
 				}
 			}
 
