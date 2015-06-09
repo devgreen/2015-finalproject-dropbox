@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FileCache {
 
@@ -37,6 +40,16 @@ public class FileCache {
 		}
 		return fileNames;
 	}
+	public Map<String, Long> getFileInfo() {
+		File file = new File(directory);
+		File[] lists = file.listFiles();
+		Map<String, Long> fileInfo= new HashMap<String, Long>();
+		for (File aFile : lists) {
+			fileInfo.put(aFile.getName(), aFile.lastModified());
+		}
+		return fileInfo;
+	}
+	
 
 	public void addChunk(Chunk chunk) throws IOException {
 		String fileName = chunk.getFileName();
@@ -45,6 +58,8 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
+		String date = Long.toString(new Date().getTime());
+		file.setLastModified(Long.parseLong(date));
 
 	}
 
