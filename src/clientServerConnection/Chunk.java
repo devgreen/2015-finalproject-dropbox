@@ -69,5 +69,13 @@ public class Chunk {
 	public byte[] getBytes() {
 		return bytes;
 	}
+	public long getLastModified(){
+		return file.lastModified();
+	}
+
+	public void setLastModified(long lastModified) {
+		file.setLastModified(lastModified);
+		
+	}
 
 }

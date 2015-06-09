@@ -34,8 +34,10 @@ public class Download implements Message {
 			} else {
 				size = (int) fileSize;
 				fileSize = 0;
+				
 			}
 			Chunk chunk = new Chunk(FileCache.ROOT + "/server/" + fileName, start, size);
+			chunk.setLastModified(file.lastModified());
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush(); 
