@@ -69,8 +69,13 @@ public class ClientCommandThread extends Thread {
 
 			serverFilesToBeDownloaded.clear();
 			for (String serverFile : serverFiles) {
-				if (!clientFiles.contains(serverFile)) {
+				if (!clientFileInfo.containsKey(serverFile)) {
 					serverFilesToBeDownloaded.add(serverFile);
+				}
+				else if (clientFileInfo.containsKey(serverFile)){
+					if (!(clientFileInfo.get(serverFile) == serverFileInfo.get(serverFile))){
+						serverFilesToBeDownloaded.add(serverFile);
+					}
 				}
 			}
 

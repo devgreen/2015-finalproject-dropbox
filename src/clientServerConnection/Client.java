@@ -26,7 +26,7 @@ public class Client implements Incoming {
 	private Map<String, Long> serverFileInfo;
 
 	public Client(JTextArea area) throws UnknownHostException, IOException {
-		socket = new Socket("localhost", 2224);
+		socket = new Socket("localhost", 2227);
 		new ClientReaderThread(socket, this).start();
 		out = socket.getOutputStream();
 		writer = new PrintWriter(out);
