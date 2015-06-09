@@ -58,8 +58,8 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
-		//String date = Long.toString(new Date().getTime());
-		file.setLastModified(chunk.getLastModified());
+		String date = Long.toString(new Date().getTime());
+		file.setLastModified(Long.parseLong(date));
 
 	}
 

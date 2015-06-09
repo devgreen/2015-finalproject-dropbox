@@ -61,7 +61,7 @@ public class ClientCommandThread extends Thread {
 					clientFilesToBeUploaded.add(clientFile);
 				}
 				else if (serverFileInfo.containsKey(clientFile)){
-					if (!(serverFileInfo.get(clientFile).equals(clientFileInfo.get(clientFile)))){
+					if (!(serverFileInfo.get(clientFile) == clientFileInfo.get(clientFile))){
 						clientFilesToBeUploaded.add(clientFile);
 					}
 				}
@@ -73,14 +73,14 @@ public class ClientCommandThread extends Thread {
 					serverFilesToBeDownloaded.add(serverFile);
 				}
 				else if (clientFileInfo.containsKey(serverFile)){
-					if (!(clientFileInfo.get(serverFile).equals(serverFileInfo.get(serverFile)))){
+					if (!(clientFileInfo.get(serverFile) == serverFileInfo.get(serverFile))){
 						serverFilesToBeDownloaded.add(serverFile);
 					}
 				}
 			}
 
 			for (int i = 0; i < clientFilesToBeUploaded.size(); i++) {
-				uploadFile(clientFilesToBeUploaded.get(i), clientFileInfo.get(clientFilesToBeUploaded.get(i)));
+				uploadFile(clientFilesToBeUploaded.get(i), i);
 			}
 
 			for (String fileName : serverFilesToBeDownloaded) {
@@ -92,7 +92,7 @@ public class ClientCommandThread extends Thread {
 
 	}
 
-	private void uploadFile(String fileName, long lastModified) {
+	private void uploadFile(String fileName, int i) {
 		// File file = new File(FileCache.ROOT + "/server/" + fileName);
 		File fileUploading = new File(FileCache.ROOT + "/client/" + fileName);
 		int start = 0;
@@ -108,7 +108,6 @@ public class ClientCommandThread extends Thread {
 				fileSize = 0;
 			}
 			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
-			chunk.setLastModified(lastModified);
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();
