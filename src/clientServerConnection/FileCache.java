@@ -59,7 +59,6 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
-		System.out.println ("setting the last modified in file cache");
 		file.setLastModified(chunk.getLastModified());
 	}
 

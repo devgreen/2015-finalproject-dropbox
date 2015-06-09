@@ -105,7 +105,7 @@ public class ClientCommandThread extends Thread {
 				fileSize = 0;
 			}
 			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
-			chunk.setLastModified(fileUploading.lastModified());
+			//chunk.setLastModified(fileUploading.lastModified());
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();
