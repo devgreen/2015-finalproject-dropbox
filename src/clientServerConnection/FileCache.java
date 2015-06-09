@@ -14,7 +14,8 @@ public class FileCache {
 
 	// this exists on the hard drive
 
-	//public static final String ROOT = "C:/Users/Devora/Documents/GitHub/2015-finalproject/dropbox";
+	// public static final String ROOT =
+	// "C:/Users/Devora/Documents/GitHub/2015-finalproject/dropbox";
 	public static final String ROOT = "./";
 	private String directory;
 
@@ -40,16 +41,16 @@ public class FileCache {
 		}
 		return fileNames;
 	}
+
 	public Map<String, Long> getFileInfo() {
 		File file = new File(directory);
 		File[] lists = file.listFiles();
-		Map<String, Long> fileInfo= new HashMap<String, Long>();
+		Map<String, Long> fileInfo = new HashMap<String, Long>();
 		for (File aFile : lists) {
 			fileInfo.put(aFile.getName(), aFile.lastModified());
 		}
 		return fileInfo;
 	}
-	
 
 	public void addChunk(Chunk chunk) throws IOException {
 		String fileName = chunk.getFileName();
@@ -58,13 +59,10 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
-		//String date = Long.toString(new Date().getTime());
 		file.setLastModified(chunk.getLastModified());
-
 	}
 
-	public Chunk getChunk(String fileName, int start, int length)
-			throws IOException {
+	public Chunk getChunk(String fileName, int start, int length) throws IOException {
 		File file = new File(fileName);
 		byte[] bytes = new byte[length];
 		RandomAccessFile random = new RandomAccessFile(file, "rw");

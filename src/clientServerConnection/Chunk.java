@@ -42,9 +42,12 @@ public class Chunk {
 		encodedBytes = encoder.encodeToString(bytes);
 
 	}
+	
 
-	public Chunk(String fileName, int offSet, int size, String encodedBytes) {
+	public Chunk(String fileName, int offSet, int size, long lastModified,String encodedBytes) {
 		this.fileName = fileName;
+		file = new File(fileName);
+		file.setLastModified(lastModified);
 		this.offSet = offSet;
 		decoder = Base64.getDecoder();
 		this.bytes = decoder.decode(encodedBytes);
@@ -69,13 +72,16 @@ public class Chunk {
 	public byte[] getBytes() {
 		return bytes;
 	}
-	public long getLastModified(){
-		return file.lastModified();
-	}
+	
 
 	public void setLastModified(long lastModified) {
 		file.setLastModified(lastModified);
 		
+	}
+
+
+	public long getLastModified() {
+		return file.lastModified();
 	}
 
 }

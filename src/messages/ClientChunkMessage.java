@@ -24,9 +24,10 @@ public class ClientChunkMessage implements Message {
 
 		String fileName = FileCache.ROOT + "/client/" + chunkCommand[1];
 		int offSet = Integer.parseInt(chunkCommand[4]);
+		long lastModified = Long.parseLong(chunkCommand[3]);
 		int size = Integer.parseInt(chunkCommand[2]);
 		String encodedBytes = chunkCommand[5];
-		Chunk chunk = new Chunk(fileName, offSet, size, encodedBytes);
+		Chunk chunk = new Chunk(fileName, offSet, size,lastModified, encodedBytes);
 		FileCache fileCache = incoming.getFileCache();
 		try {
 			fileCache.addChunk(chunk);
