@@ -35,6 +35,8 @@ public class ClientCommandThread extends Thread {
 
 		ArrayList<String> serverFiles;
 		Map<String, Long> serverFileInfo;
+		ArrayList<String> clientFiles;
+		Map<String, Long> clientFileInfo;
 		clientFilesToBeUploaded = new ArrayList<String>();
 		ArrayList<String> serverFilesToBeDownloaded = new ArrayList<String>();
 
@@ -44,22 +46,18 @@ public class ClientCommandThread extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			ArrayList<String> clientFiles = client.getFileCache().getFilesAsString();
+			clientFiles = client.getFileCache().getFilesAsString();
 			serverFiles = client.getServerFiles();
-			Map<String, Long> clientFileInfo = client.getFileCache().getFileInfo();
+			clientFileInfo = client.getFileCache().getFileInfo();
 			serverFileInfo = client.getServerFileInfo();
 
 			clientFilesToBeUploaded.clear();
-			/*
-			 * for (String clientFile : clientFiles) { if
-			 * (!serverFiles.contains(clientFile)) {
-			 * clientFilesToBeUploaded.add(clientFile); } }
-			 */
+
 			for (String clientFile : clientFiles) {
 				if (!serverFileInfo.containsKey(clientFile)) {
 					clientFilesToBeUploaded.add(clientFile);
 				} else if (serverFileInfo.containsKey(clientFile)) {
-					if (!(serverFileInfo.get(clientFile).longValue() ==(clientFileInfo.get(clientFile)).longValue())) {
+					if (!(serverFileInfo.get(clientFile).longValue() == (clientFileInfo.get(clientFile)).longValue())) {
 						clientFilesToBeUploaded.add(clientFile);
 					}
 				}
@@ -84,9 +82,7 @@ public class ClientCommandThread extends Thread {
 				System.out.println("sending download command for " + fileName);
 				client.write("DOWNLOAD " + fileName);
 			}
-
 		}
-
 	}
 
 	private void uploadFile(String fileName) {
@@ -105,7 +101,6 @@ public class ClientCommandThread extends Thread {
 				fileSize = 0;
 			}
 			Chunk chunk = new Chunk(FileCache.ROOT + "/client/" + fileName, start, size);
-			chunk.setLastModified(fileUploading.lastModified());
 			String chunkStr = chunk.toString();
 			writer.println(chunkStr);
 			writer.flush();

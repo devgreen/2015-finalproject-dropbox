@@ -23,7 +23,6 @@ public class FileCache {
 		this.directory = directory;
 		new File(directory).mkdir();
 		// new File(ROOT).mkdir();
-
 	}
 
 	public List<File> getFiles() {
@@ -59,7 +58,7 @@ public class FileCache {
 		random.seek(chunk.getOffSet());
 		random.write(chunk.getBytes());
 		random.close();
-		System.out.println ("setting the last modified in file cache");
+		System.out.println("setting the last modified in file cache");
 		file.setLastModified(chunk.getLastModified());
 	}
 

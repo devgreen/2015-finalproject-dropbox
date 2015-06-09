@@ -12,7 +12,7 @@ import messages.ListFiles;
 import messages.Message;
 import messages.Sync;
 
-public class ClientReaderThread extends Reader{
+public class ClientReaderThread extends Reader {
 
 	public ClientReaderThread(Socket clientSocket, Incoming incoming) throws IOException {
 		super(clientSocket, incoming);
@@ -28,8 +28,6 @@ public class ClientReaderThread extends Reader{
 			return new Sync(writer, incoming, stringSplit);
 		case "CHUNK":
 			return new ClientChunkMessage(incoming, stringSplit);
-		/*case "DOWNLOAD":
-			return new Download(writer, stringSplit);*/
 		case "FILES":
 			return new FilesMessage(strRcvd, incoming);
 		case "FILE":

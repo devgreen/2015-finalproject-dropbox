@@ -23,11 +23,6 @@ public class Chunk {
 		file = new File(fileName);
 		this.offSet = offSet;
 		try {
-
-		/*	FileInputStream stream = new FileInputStream(fileName);
-			stream.read(bytes, (int) offSet, bytes.length - offSet);
-			stream.close();*/
-
 			RandomAccessFile random = new RandomAccessFile(file, "rw");
 			random.seek(offSet);
 			random.read(bytes);
@@ -42,16 +37,15 @@ public class Chunk {
 		encodedBytes = encoder.encodeToString(bytes);
 
 	}
-	
 
-	public Chunk(String fileName, int offSet, int size, long lastModified,String encodedBytes) {
+	public Chunk(String fileName, int offSet, int size, long lastModified, String encodedBytes) {
 		this.fileName = fileName;
 		file = new File(fileName);
 		this.offSet = offSet;
 		decoder = Base64.getDecoder();
 		this.bytes = decoder.decode(encodedBytes);
-		System.out.println ("setting last modified in chunk");
-		file.setLastModified(lastModified);
+		System.out.println("setting last modified in chunk");
+		chunkSetLastModified(lastModified);
 
 	}
 
@@ -59,8 +53,8 @@ public class Chunk {
 	public String toString() {
 		String[] fileNameSplit = fileName.split("/");
 		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length - 1];
-		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " "
-				+ file.lastModified() + " " + offSet + " " + encodedBytes;
+		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " " + file.lastModified() + " " + offSet + " "
+				+ encodedBytes;
 	}
 
 	public String getFileName() {
@@ -74,16 +68,16 @@ public class Chunk {
 	public byte[] getBytes() {
 		return bytes;
 	}
-	
 
-	public void setLastModified(long lastModified) {
+	public void chunkSetLastModified(long lastModified) {
 		file.setLastModified(lastModified);
-		
+
 	}
 
-
 	public long getLastModified() {
-		return file.lastModified();
+		long last = file.lastModified();
+		return last;
+		//return file.lastModified();
 	}
 
 }
