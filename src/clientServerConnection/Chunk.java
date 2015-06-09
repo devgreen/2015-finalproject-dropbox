@@ -43,8 +43,10 @@ public class Chunk {
 
 	}
 
-	public Chunk(String fileName, int offSet, int size, String encodedBytes) {
+	public Chunk(String fileName, int offSet, int size,long dateModified, String encodedBytes) {
 		this.fileName = fileName;
+		file = new File(fileName);
+		file.setLastModified(dateModified);
 		this.offSet = offSet;
 		decoder = Base64.getDecoder();
 		this.bytes = decoder.decode(encodedBytes);

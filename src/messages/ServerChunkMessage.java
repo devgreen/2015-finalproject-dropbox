@@ -32,8 +32,9 @@ public class ServerChunkMessage implements Message {
 		String fileName = FileCache.ROOT + "/server/" + chunkCommand[1];
 		int offSet = Integer.parseInt(chunkCommand[4]);
 		int size = Integer.parseInt(chunkCommand[2]);
+		long dateModified = Long.parseLong(chunkCommand[3]);
 		String encodedBytes = chunkCommand[5];
-		Chunk chunk = new Chunk(fileName, offSet, size, encodedBytes);
+		Chunk chunk = new Chunk(fileName, offSet, size, dateModified,encodedBytes);
 		FileCache fileCache = server.getFileCache();
 		try {
 			fileCache.addChunk(chunk);
