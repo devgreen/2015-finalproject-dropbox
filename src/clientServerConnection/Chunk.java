@@ -56,8 +56,8 @@ public class Chunk {
 	public String toString() {
 		String[] fileNameSplit = fileName.split("/");
 		String fileNameWOdirectory = fileNameSplit[fileNameSplit.length - 1];
-		return "CHUNK " + fileNameWOdirectory + " " + file.length() + " "
-				+ file.lastModified() + " " + offSet + " " + encodedBytes;
+		return "CHUNK " + fileNameWOdirectory + " " + file.lastModified() + " "
+				+  file.length()+ " " + offSet + " " + encodedBytes;
 	}
 
 	public String getFileName() {
