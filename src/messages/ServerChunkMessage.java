@@ -53,8 +53,8 @@ public class ServerChunkMessage implements Message {
 					OutputStream out = socket.getOutputStream();
 					PrintWriter writer = new PrintWriter(out);
 					writer.println("SYNC" + " " + chunkCommand[1] + " "
-							+ chunkCommand[2] + chunkCommand[3]);
-					writer.flush();
+							+ chunkCommand[2] +" "+ chunkCommand[3]);
+					writer.flush(); 
 				} catch (IOException e) {
 					e.printStackTrace();
 					iter.remove();
